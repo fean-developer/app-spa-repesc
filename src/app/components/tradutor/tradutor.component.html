@@ -1,0 +1,72 @@
+<mat-drawer-container class="sidenav-container" autosize>
+  <mat-drawer #sidenav class="sidenav" mode="over" position="end">
+    <div class="contacts-details-header">
+      <div class="contacts-avatar">
+        <div class="contacts-avatar-content">
+          {{ avatarFirstLetter?.firstName }}
+        </div>
+      </div>
+
+      <div class="btn-close-mat-drawer">
+        <button mat-icon-button (click)="sidenav.close()" aria-label="Fechar dados de edição da repesc">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="list-contact margin-t-auto-70">
+      <div class="list-contact-header text-size-24 flex-row ml-16">
+        {{ selectedData?.description}}
+        <!-- <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+          <mat-icon>edit</mat-icon>
+        </button> -->
+      </div>
+      <div class="text-size-12 text-subtitle ml-16">Codigo Repesc: {{ selectedData?.code }}</div>
+    </div>
+  </mat-drawer>
+
+
+  <mat-drawer-content>
+
+    <mat-card>
+      <mat-card-title>Tradutor Repesc</mat-card-title>
+      <mat-card-content>
+          <table matSort (matSortChange)="sortData($event)" class="table">
+            <thead class="table-header">
+              <tr class="row row-header">
+                <th *ngFor="let th of tableHeader" mat-sort-header="{{th.id}}"> {{ th.text }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let element of sorted" (click)="onRowClicked(element); sidenav.toggle()"
+                class="row hover-row">
+
+                <td class="cell-row">{{element.range_cpf_digit}}</td>
+                <td class="cell-row"> {{element.code}}
+
+                </td>
+                <td class="cell-row" [ngClass]="{'colored': element.forwardScreen != '0'}"> {{element.forwardScreen}}
+                </td>
+                <td class="cell-row  text-left"> {{element.description}}</td>
+                <td class="cell-row center" [ngClass]="{'colored': element.products.cp_puro != '0'}">
+                  {{element.products.cp_puro}}</td>
+                <td class="cell-row center" [ngClass]="{'colored': element.products.cp_auto != '0'}">
+                  {{element.products.cp_auto}}</td>
+                <td class="cell-row center" [ngClass]="{'colored': element.products.cp_moto != '0'}">
+                  {{element.products.cp_moto}}</td>
+                <td class="cell-row center" [ngClass]="{'colored': element.products.cp_renda != '0'}">
+                  {{element.products.cp_renda}}</td>
+                <td class="cell-row center" [ngClass]="{'colored': element.products.cdc != '0'}">
+                  {{element.products.cdc}}</td>
+                <td class="cell-row center " [ngClass]="{'colored': element.products.cartao != '0'}">
+                  {{element.products.cartao}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-drawer-content>
+
+
+
+</mat-drawer-container>

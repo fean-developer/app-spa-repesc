@@ -1,0 +1,53 @@
+.login-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding: 16px;
+  width: 500px;
+  justify-items: center;
+  border-radius: 4px;
+  align-items: center;
+}
+
+.login-header-image {
+  background-image: url("../../../assets/images/trabalho-em-equipe.png");
+  background-size: cover;
+}
+
+.ripple {
+  width: 360px;
+  max-height: 435px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.login-content {
+  max-width: min-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 60px auto;
+  height: calc(100% - 60px);
+}
+
+.full-size {
+  width: 100%;
+}
+
+.login-form {
+  height: 300px;
+  line-height: 32px;
+  display: flex !important;
+  flex-flow: column;
+  justify-content: space-evenly;
+  width: 240px;
+
+  .mat-form-field {
+    width: 100%;
+  }
+}

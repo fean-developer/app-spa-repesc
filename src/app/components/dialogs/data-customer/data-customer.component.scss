@@ -1,0 +1,46 @@
+@import "./src/assets/scss/colors.scss";
+@import "./src/assets/scss/typography.scss";
+
+.customer-data {
+  padding: 8px;
+  margin: 16px auto;
+  font-family: "Roboto", sans-serif;
+
+  span {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    &:nth-child(n) {
+      flex-direction: row;
+      display: flex;
+      align-items: center;
+      line-height: 32px;
+      margin-right: 16px;
+
+      .mat-icon {
+        vertical-align: baseline;
+        font-size: 18px;
+        line-height: 20px !important;
+        margin-right: 16px;
+      }
+    }
+
+    &:nth-child(1) {
+      font-size: 14px;
+      color: $greyscale-002;
+
+      :last-child {
+        margin: 0px 0px auto auto;
+      }
+
+      .mat-icon-button {
+        width: 35px !important;
+        height: 35px !important;
+      }
+    }
+  }
+}
+.customer-data-title {
+  font-size: 16px;
+}

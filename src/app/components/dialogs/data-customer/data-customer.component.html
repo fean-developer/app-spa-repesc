@@ -1,0 +1,24 @@
+<div class="customer-data">
+    <div class="customer-data-title text-title mb-16">
+        Cliente cadastrado
+    </div>
+    <div class="customer-data-subtitle text-subtitle mb-16">
+
+    </div>
+
+    <div>
+        <span>
+            <mat-icon>document_scanner</mat-icon>{{ customer ? (customer.cpf | mask: '000.000.000-00' ) : '' }}
+            <button mat-icon-button color="accent" (click)="copyToClipboard(customer?.cpf)"
+                aria-label="Example icon button with a menu icon">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+        </span>
+        <span class="text-title">
+            <mat-icon>person</mat-icon> {{ customer?.nome }}
+        </span>
+        <span class="text-title">
+            <mat-icon>smartphone</mat-icon> {{ customer?.celular }}
+        </span>
+    </div>
+</div>

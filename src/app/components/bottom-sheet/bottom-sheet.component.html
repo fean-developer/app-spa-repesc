@@ -1,0 +1,28 @@
+<mat-nav-list>
+    <a mat-list-item (click)="openDialog($event)">
+        <span>
+            <mat-icon>shuffle</mat-icon>
+        </span>
+        <span mat-line>Gerar cliente</span>
+        <span mat-line class="text-size-12 text-color-grey-002">Gera um cliente automatico</span>
+    </a>
+
+    <!-- <a mat-list-item (click)="openLink($event)">
+        <span>
+            <mat-icon>swipe</mat-icon>
+        </span>
+        <span mat-line>Adicionar cliente manualmente</span>
+        <span mat-line class="text-size-12 text-color-grey-002">Adicione você mesmo pelo o formulário</span>
+    </a> -->
+
+    <a mat-list-item (click)="openDialog($event, true)">
+        <span>
+            <mat-icon>account_tree</mat-icon>
+        </span>
+        <span mat-line>Gerar cliente por repesc</span>
+        <span mat-line class="text-size-12 text-color-grey-002">Gerar um cliente automatico por uma repesc
+            especifica</span>
+
+    </a>
+
+</mat-nav-list>

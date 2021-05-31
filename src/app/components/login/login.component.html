@@ -1,0 +1,33 @@
+
+<div class="login-content" >
+    <mat-card class="login-card" 
+    [matRippleCentered]="true">
+        <mat-card-header>
+          <div mat-card-avatar class="login-header-image"></div>
+          <mat-card-title>Acesso</mat-card-title>
+          <mat-card-subtitle>Entre com seu Cpf e senha</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+                <p>
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Digite seu CPF</mat-label>
+                      <input matInput  formControlName="document" mask="000.000.000-00" class="form-control">
+                      <mat-icon matSuffix>account_circle</mat-icon>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Digite sua senha</mat-label>
+                      <input matInput type="password" formControlName="password" class="form-control" >
+                      <mat-icon matSuffix>lock</mat-icon>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <button mat-raised-button type="submit" class="full-size" color="primary">Entrar</button>
+                  </p>
+            </form>
+        </mat-card-content>
+        
+      </mat-card>
+</div>

@@ -1,0 +1,52 @@
+@import "./src/assets/scss/colors.scss";
+@import "./src/assets/scss/typography.scss";
+
+.form-update-repesc {
+  display: flex;
+  flex-direction: column;
+  margin: 72px auto;
+  justify-items: center;
+  align-items: center;
+
+  .form-update-repesc-title {
+    @include ty-title;
+    position: absolute;
+    top: 35px;
+    left: 45px;
+    color: $white-000;
+  }
+}
+
+.mat-drawer {
+  width: 60%;
+}
+
+@media screen and (max-width: 540px) {
+  .mat-drawer {
+    width: 100%;
+  }
+}
+
+.mat-input-element {
+  &.text-right {
+    text-align: right !important;
+  }
+}
+
+.contacts-detail-description {
+  position: absolute;
+  width: auto;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  margin: 186px 128px;
+  font-weight: 500;
+}
+
+tr.hover-row:not(.example-expanded-row):hover {
+  background: $greyscale-001;
+  cursor: pointer;
+}
+
+tr.hover-row:nth-child(n) {
+  text-align: center;
+}

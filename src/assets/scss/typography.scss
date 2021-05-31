@@ -1,0 +1,40 @@
+@mixin ty-title($fontFamily: "") {
+  @if $fontFamily != "" {
+    font-family: $fontFamily;
+  } @else {
+    font-family: "Roboto", sans-serif;
+  }
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+@for $i from 8 through 70 {
+  @if $i%8 == 0 {
+    .text-size-#{$i} {
+      font-size: #{$i}px !important;
+      line-height: #{$i + 4}px !important;
+    }
+  }
+}
+
+.text-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: $primary_color;
+}
+
+.text-subtitle {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: $greyscale-003;
+}
+
+.medium {
+  font-weight: 600 !important;
+}
+
+.regular {
+  font-weight: 400 !important;
+}

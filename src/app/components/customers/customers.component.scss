@@ -1,0 +1,144 @@
+@import "./src/assets/scss/colors.scss";
+@import "./src/assets/scss/typography.scss";
+@import "./src/assets/scss/screen.scss";
+
+.contact-list {
+  height: 100vh;
+}
+
+.mat-table {
+  width: 100%;
+  margin: 30px auto !important;
+  mat-row,
+  mat-footer-row,
+  td.mat-cell,
+  td.mat-footer-cell {
+    height: 80px;
+    align-items: center;
+  }
+}
+th.mat-header-cell {
+  background-color: $greyscale-001;
+}
+
+.contact-search {
+  width: 100%;
+  margin: 32px 0px 0px 0px !important;
+  .mat-card {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-bottom: 0px;
+    position: fixed;
+    width: 100% !important;
+    margin-top: -30px;
+    z-index: 1;
+  }
+}
+
+.mat-input-element {
+  &.text-right {
+    text-align: right !important;
+  }
+}
+
+.contacts-detail-description {
+  position: absolute;
+  width: auto;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  margin: 186px 128px;
+  font-weight: 500;
+}
+
+.mat-drawer {
+  width: 45%;
+}
+
+@media screen and (max-width: 640px) {
+  .mat-drawer {
+    width: 100%;
+  }
+}
+
+td.mat-cell {
+  display: flex;
+  flex-direction: row;
+
+  .td-avatar {
+    width: 40px;
+    height: 40px;
+    margin: auto 16px;
+    border: 3px solid white;
+    border-radius: 9999px;
+    background-color: rgba(245, 247, 248, 0.973);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: $primary_color;
+  }
+
+  .td-subtitle,
+  .td-title {
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    color: $greyscale-003;
+  }
+  .td-content {
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+  }
+}
+
+.list-contact {
+  display: flex;
+  flex-direction: row;
+
+  .list-contact-header {
+    @include ty-title();
+    justify-items: baseline;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    .mat-mini-fab {
+      position: absolute;
+      top: 170px;
+      right: 16px;
+    }
+  }
+}
+
+.list-contacts-content {
+  .list-contacts-item {
+    margin: 16 auto;
+  }
+  :nth-child(1n) {
+    margin: 0 4px;
+    align-items: center;
+  }
+}
+
+.list-item-copy {
+  position: relative;
+  top: -89px;
+  justify-content: flex-start;
+  align-items: center;
+  :nth-child(1n) {
+    margin: 0 4px;
+    align-items: center;
+  }
+  :nth-child(3n) {
+    margin: -5px auto auto 32px;
+    align-items: center;
+  }
+}
+
+.mat-elevation-z8 {
+  position: absolute;
+  margin-top: 69px !important;
+  width: 100%;
+}

@@ -1,1 +1,259 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./src/assets/scss/colors.scss";
+@import "./src/assets/scss/typography.scss";
+@import "./src/assets/scss/sizes.scss";
+
+:root {
+  --row-colored: #ccc;
+  --drawer-background-color: $greyscale-001;
+  --drawer-avatar-background-color: $greyscale-001;
+  --drawer-avatar-color: $white-000;
+}
+html {
+  height: 100vh;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: calc(100vh - 82px);
+  background-color: #e2e2e2;
+}
+
+table {
+  width: max-content;
+  margin: 0 auto;
+}
+mat-card {
+  width: max-content;
+  margin: auto;
+}
+
+.table-header {
+  font-weight: 600;
+  text-align: left;
+  width: 100%;
+}
+
+tbody {
+  &.stick {
+    overflow-y: scroll;
+    height: 400px;
+  }
+}
+
+.row {
+  height: 3.25rem;
+  &.row-header {
+    height: 3.375rem;
+    width: max-content;
+  }
+
+  &.cell-row {
+    display: table-cell;
+    text-align: center;
+  }
+
+  &.text-left {
+    text-align: left;
+  }
+  td,
+  th {
+    padding: 8px 16px 8px 15px;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+      0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  }
+}
+.colored {
+  background-color: var(--row-colored) !important;
+}
+.center {
+  text-align: center !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.small-width {
+  width: 50% !important;
+}
+
+.min-width {
+  width: 30%;
+}
+
+.mat-form-field--inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mat-form-field--inline .mat-form-field {
+  display: inline-block;
+  width: 90%;
+  vertical-align: middle;
+}
+
+.mat-form-field--inline .mat-form-field:nth-child(1) {
+  margin-right: 20px;
+}
+
+tr.hover-row:not(.example-expanded-row):hover {
+  background: $greyscale-001;
+  cursor: pointer;
+}
+
+.btn-close-mat-drawer {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  .mat-icon {
+    color: $white-000;
+  }
+}
+
+.contacts-details-header {
+  position: relative;
+  height: 195px;
+  width: 100%;
+  margin-bottom: 48px;
+  background: var(--drawer-background-color);
+}
+
+.contacts-avatar {
+  border-radius: 9999px !important;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  border: 5px solid #fff;
+  margin: 122px 1px 16px 32px;
+  position: absolute;
+  background-color: var(--drawer-avatar-background-color);
+
+  .contacts-avatar-content {
+    font-family: "Roboto", sans-serif;
+    font-size: 90px;
+    color: var(--drawer-avatar-color);
+    margin: auto;
+    position: relative;
+  }
+}
+
+.layoult-fab-button {
+  display: flex;
+  position: fixed;
+  bottom: 40px;
+  right: 16px;
+}
+
+.container-add-person {
+  border-radius: 100% !important;
+  position: fixed;
+  height: 0px;
+  width: 56px;
+  height: 56px;
+  bottom: 34px;
+  right: 16px;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  background-color: rgb(4, 18, 211);
+  transition: all 0.5s ease;
+  display: flex;
+  box-shadow: cubic-bezier(0.4, 0, 0.2, 1);
+  :nth-child(n) {
+    visibility: hidden;
+    transition: all 0.5s ease;
+  }
+
+  &.transform-fab {
+    height: 270px;
+    width: 250px;
+    display: flex;
+    border-radius: 2% !important;
+    transition: all 0.5s ease;
+    background-color: rgb(253, 253, 253);
+    box-shadow: 0px 2px 4px 0px #19434653;
+    :nth-child(n) {
+      visibility: visible;
+      transition: all 1s ease;
+    }
+  }
+}
+
+.options-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px 0px #19434653;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  font-family: sans-serif;
+  margin: 16px;
+  padding: 4px;
+}
+.options-button.option-red {
+  color: white;
+  background: #fe0064;
+}
+
+.options-button-icon,
+.options-button-description {
+  margin: 4px auto;
+  text-align: center;
+}
+.options-button-description {
+  font-weight: 500;
+  font-size: 12px;
+  outline: none;
+  user-select: none;
+}
+
+.row > * {
+  width: 0 !important;
+}
+
+.row {
+  display: table-row !important;
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}
+
+.modal-container {
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0px;
+  .mat-dialog-actions {
+    align-items: center;
+  }
+  .mat-dialog-container {
+    width: 100%;
+
+    .custom-modal {
+      .custom-dialog-content {
+        .mat-dialog-tite {
+          color: $white-000;
+          height: 60px;
+          padding: 16px;
+        }
+        .mat-dialog-content {
+          padding: 24px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.form-control:focus {
+  border-color: transparent !important;
+  box-shadow: 0 0 0 0 !important;
+}

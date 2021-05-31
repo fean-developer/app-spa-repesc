@@ -1,0 +1,88 @@
+<div class="form-update-repesc">
+    <div class="form-update-repesc-title">
+      Atualização da Repesc
+    </div>
+    <form [formGroup]="updateForm" class="repescs-form" (ngSubmit)="onSubmit()">
+      <div>
+        <p class="mat-form-field--inline">
+          <mat-form-field appearance="standard" class="min-width">
+            <mat-label>Codigo</mat-label>
+            <input matInput placeholder="código da repesc" formControlName="code">
+            <mat-icon matSuffix>qr_code_scanner</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="min-width">
+            <mat-label>Desvio / ForwardScreen</mat-label>
+            <input matInput placeholder="ex: D ou F ou 0" maxlength="1" formControlName="forwardScreen">
+            <mat-icon matSuffix>read_more</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="standard" class="full-width">
+            <mat-label>Descrição</mat-label>
+            <input matInput placeholder="Descrição da repesc" formControlName="description">
+            <mat-icon matSuffix>text_fields</mat-icon>
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field appearance="standard" class="min-width">
+            <mat-label>Range digito do CPF</mat-label>
+            <input matInput placeholder="00-00" mask="99-99" formControlName="range_cpf_digit">
+            <mat-icon matSuffix>view_array</mat-icon>
+          </mat-form-field>
+        </p>
+        <mat-divider></mat-divider>
+        <div formGroupName="products">
+
+
+          <p class="mat-form-field--inline">
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>CP Puro</mat-label>
+              <input matInput placeholder="00000.00" type="text" formControlName="cp_puro" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>CP Auto</mat-label>
+              <input matInput placeholder="00000.00" type="text" formControlName="cp_auto" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </p>
+          <p class="mat-form-field--inline">
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>CP Moto</mat-label>
+              <input matInput placeholder="00000.00" type="text" formControlName="cp_moto" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>CP Renda</mat-label>
+              <input matInput placeholder="00000.00" type="tex" formControlName="cp_renda" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </p>
+          <p class="mat-form-field--inline">
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>CDC</mat-label>
+              <input matInput placeholder="00000.00" type="text" formControlName="cdc" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="min-width">
+              <mat-label>Cartão</mat-label>
+              <input matInput placeholder="00000.00" type="text" formControlName="cartao" class="text-right">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </p>
+        </div>
+
+      </div>
+      <p><button mat-raised-button color="primary" type="submit"
+          class="full-width">Salvar</button></p>
+    </form>
+  </div>

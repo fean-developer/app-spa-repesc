@@ -1,0 +1,21 @@
+$primary_color: hsl(340, 1%, 47%);
+$white-000: #fff;
+
+$greyscale-001: rgba(245, 247, 248, 0.973);
+$greyscale-002: rgba(121, 119, 119, 1);
+$greyscale-003: rgb(156, 156, 156, 1);
+
+$oranged-001: rgb(240, 221, 193, 1);
+$oranged-002: rgb(239, 200, 171, 1);
+$oranged-003: rgb(255, 150, 20, 1);
+$oranged-004: rgb(255, 85, 20, 1);
+
+$blue-indigo-004: rgb(0, 113, 109, 1);
+
+.text-color-grey-002 {
+  color: $greyscale-002;
+}
+
+.tool-bar-green-004 {
+  background-color: $blue-indigo-004;
+}
