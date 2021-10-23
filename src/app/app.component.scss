@@ -36,7 +36,7 @@ p {
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: $blue-indigo-004;
+  background-color: $primary-color;
   color: white;
   font-weight: 600;
   z-index: 49;
@@ -101,11 +101,11 @@ p {
   }
 
   mat-icon {
-    color: $primary_color;
+    color: $primary-color;
   }
 }
 
-.sidenav-contacts-avatar {
+.sidenav-drawer-avatar {
   border-radius: 9999px !important;
   width: 92px;
   height: 92px;
@@ -118,7 +118,7 @@ p {
   img {
     object-fit: cover !important;
     width: 35%;
-    margin: -11px -1.5px;
+    margin: -15px -5.5px;
     position: absolute;
   }
 }
@@ -170,4 +170,8 @@ p {
   .mat-icon {
     color: $white-000;
   }
+}
+
+.disabled {
+  color: var(--greyscale-003);
 }

@@ -65,10 +65,20 @@ span.invalid.ng-star-inserted {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
 }
+
 .mat-dialog-notice {
   font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;
   background: aliceblue;
+}
+
+.mat-form-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  width: 180px;
+  font-size: 18px;
 }

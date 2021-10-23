@@ -1,5 +1,5 @@
 import { Customers } from 'src/app/models/customers';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 
@@ -15,19 +15,21 @@ export class DataCustomerComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   @Input() public customer!: Customers;
+  @Output() public createData = new EventEmitter<Customers>();
   constructor(
     private clipboard: Clipboard,
     private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
+
   }
 
   public copyToClipboard(value?: string) {
     this.clipboard.copy(value!);
     this.openSnackBar();
   }
-
+ 
   private openSnackBar() {
     this._snackBar.open('Documento copiado', 'Entendi', {
       horizontalPosition: this.horizontalPosition,

@@ -1,0 +1,11 @@
+<div class="header-bar-dialog"></div>
+<div class="modal-container">
+    <div class="mat-dialog-content" [innerHTML]="'Deseja mesmo apagar o registro?' + data?.item ">
+        
+      
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button color="accent" (click)="onClickIgree()">Deletar</button>
+      </div>
+</div>

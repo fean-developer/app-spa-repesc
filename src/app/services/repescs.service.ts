@@ -51,7 +51,6 @@ export class RepescsService {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
-    console.log(errorMessage);
     return throwError(errorMessage);
   };
 }

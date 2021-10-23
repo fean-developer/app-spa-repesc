@@ -1,21 +1,24 @@
 <div class="modal-container">
 
     <div class="mat-dialog-title">
-        Gerar cliente para massa de teste
+        Atualização tabela tradutor
     </div>
     <div class="mat-dialog-subtitle mt-24 mb-24 ">
-        {{ cerate_data_constant }}
+        <app-fileupload
+        requiredTypeFile="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,text/comma-separated-values">
+      </app-fileupload>
     </div>
-    <div class="mat-dialog-notice mt-16 mb-16" [innerHTML]="notice">
+    <div class="mat-dialog-notice mt-16 mb-16 warning" [innerHTML]="dictionary.UPALOAD_DESCRIPTION">
     </div>
 
-    <form [formGroup]="formCreate" class="login-form" *ngIf="byRepesc" (ngSubmit)="onCreateCustomer()">
+    <!-- <form [formGroup]="formCreate" class="login-form" *ngIf="byRepesc && !data" (ngSubmit)="onCreateCustomer()">
         <div>
             <p class="mat-form-field--inline">
                 <mat-form-field appearance="standard" class="min-width"
                     [ngClass]="{'ng-dirty ng-touched mat-form-field-invalid ng-invalid': formCreate?.errors?.repescNotFound && formCreate.dirty}">
                     <mat-label>Codigo</mat-label>
-                    <input matInput placeholder="código da repesc" mask="AA 000" class="form-control" [showMaskTyped]="true" formControlName="repesc">
+                    <input matInput placeholder="código da repesc" mask="AA 000" class="form-control"
+                        [showMaskTyped]="true" formControlName="repesc">
                     <mat-icon matSuffix>qr_code_scanner</mat-icon>
                     <mat-error *ngIf="formCreate.get('repesc')?.hasError('required') && formCreate.dirty">
                         Código repesc é <strong>obrigatório</strong>
@@ -28,25 +31,18 @@
                     </span>
                 </mat-form-field>
             </p>
-        </div>
+        </div>-->
 
-        <div mat-dialog-actions *ngIf="byRepesc && !data?.nome">
-
-            <button mat-raised-button type="submit" primary color="accent" >
-                <span *ngIf="!loading"> Gerar Massa de Teste</span>
-                <div *ngIf="loading" class="loading-buton">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only"></span>
-                    </div>
-                </div>
+        <div mat-dialog-actions>
+            <button mat-raised-button type="button" color="accent" (click)="onNoClick()">
+                <span> Fechar </span>
             </button>
         </div>
-    </form>
+        
+        
+        <div mat-dialog-actions>
 
-    <data-dialog-generated *ngIf="data?.nome"  [customer]="data" ></data-dialog-generated>
-    <div mat-dialog-actions>
-
-        <button mat-raised-button color="primary" *ngIf="!byRepesc && !data?.nome" (click)="generate()">
+        <!-- <button mat-raised-button color="primary" *ngIf="!byRepesc && !data" (click)="generate()">
             <span *ngIf="!loading"> Gerar Massa de Teste</span>
 
             <div *ngIf="loading" class="loading-buton primary">
@@ -54,9 +50,9 @@
                     <span class="sr-only"></span>
                 </div>
             </div>
-        </button>
-        <button mat-raised-button type="button" color="accent" (click)="onNoClick()" *ngIf="data?.nome">
+        </button> -->
+        <!-- <button mat-raised-button type="button" color="accent" (click)="onNoClick()" *ngIf="data">
             <span *ngIf="!loading"> Fechar </span>
-        </button>
+        </button> -->
     </div>
 </div>

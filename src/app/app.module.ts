@@ -1,8 +1,8 @@
+import { FormaData } from 'src/app/_helpers/format.data';
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RepescsService } from './services/repescs.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -36,19 +36,29 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DialogGenerateCustomersComponent } from './components/dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { DataCustomerComponent } from './components/dialogs/data-customer/data-customer.component';
 import { FormDataTradutorComponent } from './components/tradutor/form-data-tradutor/form-data-tradutor.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
-
+import { AppRoutingModule } from './app-routing.module';
+import { FileuploadComponent } from './common/components/fileupload/fileupload.component';
+import { UploadTradutorComponent } from './components/dialogs/upload-tradutor/upload-tradutor.component';
+import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
   };
 };
+
+export function playerFactory() {
+  return player;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,10 +66,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     LoginComponent,
     DashboardComponent,
     CustomersComponent,
-    BottomSheetComponent,
     DialogGenerateCustomersComponent,
     DataCustomerComponent,
     FormDataTradutorComponent,
+    FileuploadComponent,
+    UploadTradutorComponent,
+    DialogAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +103,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MatGridListModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatBottomSheetModule
+    MatProgressBarModule,
+    MatToolbarModule,
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -99,7 +113,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   exports: [RouterModule],
   providers: [RepescsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  FormaData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
