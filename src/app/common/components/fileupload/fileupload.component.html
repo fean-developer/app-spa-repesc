@@ -1,0 +1,18 @@
+<input type="file" class="file-input" [accept]="requiredFileType" name="excelFile" (change)="onFileSelected($event)"
+    #fileUpload>
+
+<div class="file-upload" for="upload-btn text-subtitle">
+
+    {{fileName || "Clique no botão e selecione o arquivo!"}}
+
+    <button mat-mini-fab class="upload-btn" id="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>file_upload</mat-icon>
+    </button>
+
+</div>
+
+<div class="progress">
+    <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+    </mat-progress-bar>
+    <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">cancel</mat-icon>
+</div>

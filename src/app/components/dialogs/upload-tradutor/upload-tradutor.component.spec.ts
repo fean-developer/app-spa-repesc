@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BottomSheetComponent } from './bottom-sheet.component';
+import { UploadTradutorComponent } from './upload-tradutor.component';
 
-describe('BottomSheetComponent', () => {
-  let component: BottomSheetComponent;
-  let fixture: ComponentFixture<BottomSheetComponent>;
+describe('UploadTradutorComponent', () => {
+  let component: UploadTradutorComponent;
+  let fixture: ComponentFixture<UploadTradutorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BottomSheetComponent ]
+      declarations: [ UploadTradutorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BottomSheetComponent);
+    fixture = TestBed.createComponent(UploadTradutorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

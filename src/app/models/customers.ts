@@ -1,6 +1,6 @@
 import { Repescs } from './repescs';
 export class Customers {
-    _id?: string;
+    id?: string;
     nome!: string;
     idade?: number;
     cpf!: string;

@@ -17,6 +17,10 @@
   }
 }
 
+.--spacer {
+  flex: 1 1 auto;
+}
+
 .mat-drawer {
   width: 60%;
 }
@@ -49,4 +53,36 @@ tr.hover-row:not(.example-expanded-row):hover {
 
 tr.hover-row:nth-child(n) {
   text-align: center;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  position: fixed;
+  z-index: 1;
+}
+mat-card.mat-card.mat-focus-indicator {
+  margin: 82px auto;
+}
+
+.table-header { 
+  &.custom-table-header{
+    th:nth-child(4) {
+      width: 25% !important;
+      align-items: flex-start !important;
+    }
+    :nth-child(1) {
+      width: 18% !important;
+    }
+  }
+}
+
+.table>:not(caption)>*>*:nth-child(4) {
+    text-align: left  !important;
+    text-transform: capitalize;
+    :nth-child(1) {
+      text-align: center  !important;
+    }
+}
+
+.list-contact-header {
+  text-transform: capitalize;
 }

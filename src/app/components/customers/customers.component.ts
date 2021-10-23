@@ -1,11 +1,14 @@
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Customers } from 'src/app/models/customers';
 import { DialogGenerateCustomersComponent } from './../dialogs/dialog-generate-customers/dialog-generate-customers.component';
-import { BottomSheetComponent } from './../bottom-sheet/bottom-sheet.component';
+import { FormaData } from 'src/app/_helpers/format.data';
+import { DialogAlertComponent } from './../dialogs/dialog-alert/dialog-alert.component';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StylesService } from 'src/app/services/styles.service';
 import { CustomersService } from './../../services/customers.service';
-import { Customers } from './../../models/customers';
-import { Component, ViewChild, OnInit, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ViewChild, OnInit, Output, EventEmitter, AfterViewInit, Input } from '@angular/core';
+import { Observable} from 'rxjs';
+import {  finalize } from 'rxjs/operators';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -18,8 +21,9 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 
 
 @Component({
@@ -27,23 +31,35 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements OnInit {
-
-  public customers: Customers[] = [];
-  public repescs!: Repescs[];
-  public repescdata!: Repescs;
-  public subscribe!: Observable<Repescs>;
-
-  displayedColumns: string[] = ['nome'];
-  public dataSource!: MatTableDataSource<Customers>;
+export class CustomersComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(Customers) selectedData!: Customers;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  
+  displayedColumns: string[] = ['nome'];
+  public dataSource!: MatTableDataSource<Customers>;
+  public customers: Customers[] = [];
+  public repescs!: Repescs[];
+
   public avatarFirstLetter!: { firstName: string, lastName: string }
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   public isLoading: boolean = false;
+  public hasData: boolean = false;
+  public dialogRef!: MatDialogRef<any>;
+  public dialogGenerateRef!: MatDialogRef<any>;
+
+  options: AnimationOptions = {
+    path: '/assets/images/lottie/add-contact.json',
+  };
+
+  @Input() public customer!: Customers;
+  @Input() public loadCreatedCustomer!: Customers;
+  @Output() public createdCustomer = new EventEmitter<Customers>();
+
+  animationCreated(animationItem: AnimationItem): void {}
 
   constructor(
     private service: CustomersService,
@@ -51,37 +67,84 @@ export class CustomersComponent implements OnInit {
     private stylesServices: StylesService,
     private clipboard: Clipboard,
     private _snackBar: MatSnackBar,
-    private _bottomSheet: MatBottomSheet,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private fomatData: FormaData,
+  ) { 
+  }
+
+  ngAfterViewInit(): void {
+    this.listCustomers();
+    this.retrieveRepescs();
+  }
 
   ngOnInit(): void {
-    this.listCustomers()
+    this.listCustomers();
+  }
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(DialogAlertComponent,{disableClose:true, data: { item : `<br /><br />CPF:  ${ this.fomatData.formatCpf(this.selectedData?.cpf)} <br /> ${this.selectedData?.nome}`}});
+  }
+
+  openGenerateDialog(event: MouseEvent, byRepesc?: boolean, byForm?: boolean): void {
+    const dialogRef = this.dialog.open(DialogGenerateCustomersComponent, {
+      panelClass: 'modal-container',
+    });
+
+    if (byRepesc) dialogRef.componentInstance.byRepesc = true;
+    if (byForm && !byRepesc) dialogRef.componentInstance.byForm = true;
+    
+    dialogRef.afterClosed().subscribe(
+      () => {
+        dialogRef.componentInstance.byForm = false;
+        dialogRef.componentInstance.byRepesc = false;
+        this.customers.push(dialogRef.componentInstance.customer);
+      }
+    )
+    event.preventDefault();
   }
 
   listCustomers(): void {
-    this.setPropertyStyle();
-    this.isLoading = true;
-    this.retrieveRepescs();
     this.service.getAllCustomers()
-      .subscribe(data => {
+     .subscribe(data => {
         this.customers = data;
-        this.dataSource = new MatTableDataSource(this.customers);
-        this.customers.map((row) => {
+        this.customers.filter((row) => {
           row.repescData = this.repescs.find((el) => el.code == row.repesc)
         });
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
         this.isLoading = false
-      })
+        this.hasData = this.customers.length > 0 ? true : false;
+        this.updateDataSource()
+      });
+  }
+ 
+  updateDataSource() {
+    this.dataSource = new MatTableDataSource(this.customers);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  openBottomSheet(): void {
-    this._bottomSheet.open(BottomSheetComponent);
-    this.dialog._getAfterAllClosed()
-      .subscribe(
-        () => this.listCustomers()
-      )
+  deleteCustomer(id?: string) {
+    this.openDialog();
+    const modal = this.dialogRef.afterClosed()
+      .pipe(
+        finalize(() => {
+          this.sidenav.close();
+        })).subscribe(
+          () => {
+            if (this.dialogRef.componentInstance.agree) {
+              this.service.deleteCustomer(id).subscribe(
+                () => {
+                  this._snackBar.open('Cliente deletado', '', {
+                    horizontalPosition: this.horizontalPosition,
+                    verticalPosition: this.verticalPosition,
+                    panelClass: 'info',
+                    duration: 5000
+                  })
+                  this.customers = this.customers.filter((el) => el.id != id);
+                  this.updateDataSource();
+                })
+            }
+          }
+        )
   }
 
   retrieveRepescs() {
@@ -91,9 +154,9 @@ export class CustomersComponent implements OnInit {
       });
   }
 
-  public copyToClipboard(value?: string) {
+  public copyToClipboard(field: string, value?: string) {
     this.clipboard.copy(value!);
-    this.openSnackBar();
+    this.openSnackBar(field);
   }
 
   applyFilter(event: Event) {
@@ -105,8 +168,8 @@ export class CustomersComponent implements OnInit {
     }
   }
 
-  private openSnackBar() {
-    this._snackBar.open('Documento copiado', 'Entendi', {
+  private openSnackBar(field?: string) {
+    this._snackBar.open(`${field} copiado!` , 'Entendi', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 6000
@@ -117,6 +180,7 @@ export class CustomersComponent implements OnInit {
     row.repesc as Repescs;
     this.selectedData = row;
     this.avatarFirstLetter = { firstName: row.nome.substr(0, 1), lastName: row.nome.substr(1) };
+    console.log(this.selectedData);
   }
 
   public setPropertyStyle(): void {

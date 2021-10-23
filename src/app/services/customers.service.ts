@@ -43,6 +43,13 @@ export class CustomersService {
         catchError(this.handleError));
   }
 
+  public deleteCustomer(id?: string) {
+    return this.httpClient.delete<Customers>(`${this.config.api}/customers/${id}`)
+      .pipe(
+        retry(1), delay(600),
+        catchError(this.handleError));
+  }
+
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -53,7 +60,6 @@ export class CustomersService {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
-    console.log(errorMessage);
     return throwError(errorMessage);
   };
 }

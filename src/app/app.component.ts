@@ -10,11 +10,13 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   title = 'repescs';
   public isLogged: boolean = false;
   public listMenu: Array<any> = [];
+  public currentUser!: any;
 
   constructor(private user: UserService) {
     this.listMenu = [
-      { icon: 'assessment', text: 'Repescs', page: '/repescs' },
-      { icon: 'groups', text: 'Meus cliente', page: '/customers' }
+      { icon: 'assessment', text: 'Repescs', page: '/repescs', disabled: false},
+      { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
+      { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: true }
     ]
   }
 
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.currentUser = this.user.userValue;
   }
 
   ngAfterViewInit(): void {

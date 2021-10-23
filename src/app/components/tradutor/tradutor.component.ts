@@ -1,10 +1,13 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UserService } from './../../services/user.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Input, OnInit, EventEmitter } from '@angular/core';
 import { Repescs } from 'src/app/models/repescs';
 import { RepescsService } from 'src/app/services/repescs.service';
 import { Sort } from '@angular/material/sort';
 import { delay, first } from 'rxjs/operators';
-import { StylesService } from 'src/app/services/styles.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
+import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 
 
 
@@ -26,7 +29,7 @@ export class TradutorComponent implements OnInit {
   public submitted!: boolean;
 
   public tableHeader = [
-    { id: 'range_cpf_digit', text: '6 e & Digito' },
+    { id: 'range_cpf_digit', text: '6 e 7 Digito' },
     { id: 'code', text: 'Repesc' },
     { id: 'forwardScreen', text: 'Desvio' },
     { id: 'description', text: 'Descrição' },
@@ -41,20 +44,21 @@ export class TradutorComponent implements OnInit {
   public selectedData: any;
 
 
-
   constructor(
     private repescsServices: RepescsService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
-    private stylesSevices: StylesService) {
+    public dialog: MatDialog) {
     this.isEditable = false;
   }
 
   get frm() { return this.updateForm.controls }
+  get user() { return this.userService.userValue};
 
   ngOnInit(): void {
-    this.setPropertyStyle();
     this.getRepespcs();
     this.createForm();
+    this.dialog._getAfterAllClosed().subscribe(() => this.getRepespcs() )
   }
 
   private getRepespcs() {
@@ -103,6 +107,30 @@ export class TradutorComponent implements OnInit {
     });
   }
 
+  openDialog(event: MouseEvent, byRepesc?: boolean): void {
+    const dialogRef = this.dialog.open(UploadTradutorComponent, {
+      panelClass: 'modal-container'
+    });
+  }
+
+  openGenerateDialog(event: MouseEvent, byRepesc?: boolean, repesc?: string): void {
+    const dialogRef = this.dialog.open(DialogGenerateCustomersComponent, {
+      panelClass: 'modal-container',
+      data: {
+        ...{repesc},
+      }
+    });
+
+    if (byRepesc) dialogRef.componentInstance.byRepesc = true;
+    
+    dialogRef.afterClosed().subscribe(
+      () => {
+        dialogRef.componentInstance.byForm = false;
+        dialogRef.componentInstance.byRepesc = false;
+      }
+    )
+    event.preventDefault();
+  }
 
   private createForm() {
     this.updateForm = this.formBuilder.group({
@@ -150,19 +178,8 @@ export class TradutorComponent implements OnInit {
         next: () => {
           this.getRepespcs();
         },
-        error: error => {
-          console.log(error)
-        }
+        error: error => {}
       });
-  }
-
-  public setPropertyStyle(): void {
-    this.stylesSevices.style([
-      { style: '--row-colored', value: 'rgb(240, 221, 193, 1)', },
-      { style: '--drawer-background-color', value: 'rgb(1, 149, 150,1)', },
-      { style: '--drawer-avatar-background-color', value: 'rgb(1, 149, 150,1)', },
-      { style: '--drawer-avatar-color', value: 'rgb(255, 255, 255, 1)', },
-    ]);
   }
 }
 function compare(a: number | string, b: number | string, isAsc: boolean) {

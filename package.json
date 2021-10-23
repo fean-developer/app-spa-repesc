@@ -23,6 +23,8 @@
     "@angular/router": "~11.2.11",
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.0-beta3",
+    "lottie-web": "^5.7.9",
+    "ngx-lottie": "^7.0.1",
     "ngx-mask": "^11.1.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
