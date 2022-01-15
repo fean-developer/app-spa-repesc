@@ -1,0 +1,53 @@
+<div class="customer-options">
+    <mat-dialog-title class="text-title">Cliente</mat-dialog-title>
+<mat-dialog-content >
+    <div class="customers-options-title text-title">{{data?.customer.nome}}</div>
+    <div class="customers-options-actions"></div>
+    <div class="customers-options-content">
+        <div class="customers-content-repesc">
+            <div class="text-subtitle">Repesc: {{ data?.customer.repescData?.code }} {{data?.customer.repescData?.description }}
+            </div>
+            <div class="text-subtitle">Desvio: {{ data?.customer.repescData?.forwardScreen }}</div>
+            <div class="text-subtitle">Range: {{ data?.customer.repescData?.range_cpf_digit }}</div>
+            
+        </div>
+        <br>
+        <mat-divider></mat-divider>
+        <div class="actions">
+            <div> <button mat-mini-fab color="primary" *ngIf="!data?.customer.sharedWithUser"  aria-label="Example icon button with a plus one icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div>
+                <button mat-mini-fab *ngIf="!data?.customer.sharedWithUser" (click)="openSharedCustomer()" color="accent" aria-label="Example icon button with a plus one icon">
+                    <mat-icon>shared</mat-icon>
+                  </button> 
+            </div>
+        </div>
+        <div *ngIf="data?.customer.sharedWithUser">
+            <div class="customers-shared-data">
+                <div class="customers-shared-data-content">
+                    <span class="text-subtitle">Você compartilhou esse cliente</span>
+                    <span>
+                        <span class="medium">com o usuário: </span> 
+                        <span class="regular italic">{{data?.customer.sharedWithUser?.name}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!data?.customer.sharedWithUser && allowShared" class="customers-options-form" >
+        <mat-form-field appearance="fill">
+            <mat-label>Select your car</mat-label>
+            <select matNativeControl id="mySelectId" (change)="onSelectData($event)">
+                <option>Selecione um usuário</option>
+                <option controlFormName="user" *ngFor="let user of selected" [value]="user?.id">{{ user?.name }}</option>
+            </select>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="sharedWithUser()" cdkFocusInitial>salvar</button>
+</mat-dialog-actions>
+</div>

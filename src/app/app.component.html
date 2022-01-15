@@ -1,6 +1,6 @@
 
-<mat-drawer-container class="sidenav-container" autosize>
-  <mat-drawer #drawer class="sidenav" mode="side">
+<mat-drawer-container class="sidenav-container" autosize [hasBackdrop]="true">
+  <mat-drawer #drawer class="sidenav" mode="over">
     <div class="sidenav-logo-avatar">
       <img mat-card-image src="../../../assets/images/score-de-credito.jpg" alt="Photo of a Shiba Inu">
     </div>
@@ -40,7 +40,7 @@
     </div>
     <mat-divider></mat-divider>
     <mat-selection-list [multiple]="false">
-      <mat-list-option *ngFor="let mn of listMenu" [routerLink]="[mn.page]" (click)="drawer.toggle()" [disabled]="mn.disabled" aria-disabled="mn.disabled" [ngClass]="{'disabled': mn.disabled}" >
+      <mat-list-option *ngFor="let mn of listMenu" [routerLink]="[mn.page]" [disabled]="mn.disabled" aria-disabled="mn.disabled" [ngClass]="{'disabled': mn.disabled}" (click)="drawer.toggle()" >
         <mat-icon mat-list-icon >{{mn.icon}}</mat-icon>
         <div mat-line>{{mn.text}}</div>
       </mat-list-option>

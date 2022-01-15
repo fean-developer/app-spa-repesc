@@ -22,7 +22,7 @@
 }
 
 .mat-drawer {
-  width: 60%;
+  width: 30%;
 }
 
 @media screen and (max-width: 540px) {
@@ -66,11 +66,10 @@ mat-card.mat-card.mat-focus-indicator {
 .table-header { 
   &.custom-table-header{
     th:nth-child(4) {
-      width: 25% !important;
-      align-items: flex-start !important;
+      text-align: center  !important;
     }
     :nth-child(1) {
-      width: 18% !important;
+      width: 8% !important;
     }
   }
 }
@@ -85,4 +84,20 @@ mat-card.mat-card.mat-focus-indicator {
 
 .list-contact-header {
   text-transform: capitalize;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  position: sticky;
+}
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.invalid {
+  color: red !important;
 }

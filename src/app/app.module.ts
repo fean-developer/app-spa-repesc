@@ -48,6 +48,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { FileuploadComponent } from './common/components/fileupload/fileupload.component';
 import { UploadTradutorComponent } from './components/dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
+import {MatSelectModule} from '@angular/material/select';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { CustomerUpdateComponent } from './components/dialogs/customer-update/customer-update.component';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -71,7 +74,8 @@ export function playerFactory() {
     FormDataTradutorComponent,
     FileuploadComponent,
     UploadTradutorComponent,
-    DialogAlertComponent
+    DialogAlertComponent,
+    CustomerUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +109,8 @@ export function playerFactory() {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatToolbarModule,
+    MatSelectModule,
+    NgApexchartsModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   schemas: [

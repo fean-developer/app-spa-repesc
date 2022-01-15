@@ -1,5 +1,5 @@
 import { UserService } from './services/user.service';
-import { AfterViewChecked, AfterViewInit, Component, Input, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +13,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   public currentUser!: any;
 
   constructor(private user: UserService) {
-    this.listMenu = [
-      { icon: 'assessment', text: 'Repescs', page: '/repescs', disabled: false},
-      { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
-      { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: true }
-    ]
+    
   }
 
 
@@ -29,6 +25,11 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   ngOnInit() {
     this.currentUser = this.user.userValue;
+    this.listMenu = [
+      { icon: 'assessment', text: 'Repescs', page: '/repescs', disabled: false},
+      { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
+      { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: !this.user.userValue.isAdmin }
+    ]
   }
 
   ngAfterViewInit(): void {
@@ -37,6 +38,17 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
     });
   }
 
+  public myDashboard() {
+
+    // property five last customers
+
+    // property all customers
+
+    // property all shared customers
+
+    // property cadastrados na sim
+
+  }
 
 
   public logout() {

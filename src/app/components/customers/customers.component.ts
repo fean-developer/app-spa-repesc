@@ -1,3 +1,5 @@
+import { UserService } from './../../services/user.service';
+import { CustomerUpdateComponent } from './../dialogs/customer-update/customer-update.component';
 import { Customers } from 'src/app/models/customers';
 import { DialogGenerateCustomersComponent } from './../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { FormaData } from 'src/app/_helpers/format.data';
@@ -6,8 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StylesService } from 'src/app/services/styles.service';
 import { CustomersService } from './../../services/customers.service';
-import { Component, ViewChild, OnInit, Output, EventEmitter, AfterViewInit, Input } from '@angular/core';
-import { Observable} from 'rxjs';
+import { Component, ViewChild, OnInit, AfterViewInit, Input } from '@angular/core';
 import {  finalize } from 'rxjs/operators';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -24,7 +25,12 @@ import {
 
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { User } from 'src/app/models/user';
 
+interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-customers',
@@ -42,6 +48,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   public dataSource!: MatTableDataSource<Customers>;
   public customers: Customers[] = [];
   public repescs!: Repescs[];
+  public shared: boolean = false;
 
   public avatarFirstLetter!: { firstName: string, lastName: string }
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -56,8 +63,8 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   };
 
   @Input() public customer!: Customers;
-  @Input() public loadCreatedCustomer!: Customers;
-  @Output() public createdCustomer = new EventEmitter<Customers>();
+  
+  public users!: Partial<User[]>;
 
   animationCreated(animationItem: AnimationItem): void {}
 
@@ -68,7 +75,9 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     private clipboard: Clipboard,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private dialogViewAndEditData: MatDialog,
     private fomatData: FormaData,
+    private usersServices: UserService
   ) { 
   }
 
@@ -78,11 +87,23 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.listCustomers();
+    this.showUsers();
   }
 
   openDialog() {
     this.dialogRef = this.dialog.open(DialogAlertComponent,{disableClose:true, data: { item : `<br /><br />CPF:  ${ this.fomatData.formatCpf(this.selectedData?.cpf)} <br /> ${this.selectedData?.nome}`}});
+  }
+
+  openModalDataAndUpdate() {
+     this.dialogViewAndEditData.open(CustomerUpdateComponent, { 
+      data: { 
+        customer: this.selectedData, 
+        user: this.users 
+      }, 
+      width: '100%',
+      height: 'auto',
+      disableClose: true
+    });
   }
 
   openGenerateDialog(event: MouseEvent, byRepesc?: boolean, byForm?: boolean): void {
@@ -103,6 +124,13 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     event.preventDefault();
   }
 
+  showUsers() {
+    this.usersServices.listUsers()
+    .subscribe((users) => {
+      this.users = users;
+    })
+  }
+
   listCustomers(): void {
     this.service.getAllCustomers()
      .subscribe(data => {
@@ -120,6 +148,10 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource(this.customers);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  openSharedCustomer() {
+    this.shared = !this.shared;
   }
 
   deleteCustomer(id?: string) {
@@ -180,12 +212,12 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     row.repesc as Repescs;
     this.selectedData = row;
     this.avatarFirstLetter = { firstName: row.nome.substr(0, 1), lastName: row.nome.substr(1) };
-    console.log(this.selectedData);
   }
 
   public setPropertyStyle(): void {
     this.stylesServices.style([
       { style: '--row-colored', value: 'rgb(240, 221, 193, 1)', },
+      { style: '--row-colored-deadline', value: 'rgb(247, 208, 223,1)', },
       { style: '--drawer-background-color', value: 'rgb(1, 149, 150,1)', },
       { style: '--drawer-avatar-background-color', value: 'rgb(1, 149, 150,1)', },
       { style: '--drawer-avatar-color', value: 'rgb(255, 255, 255, 1)', },

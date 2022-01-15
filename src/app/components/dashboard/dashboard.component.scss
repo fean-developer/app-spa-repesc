@@ -36,3 +36,14 @@
   margin: 60px auto;
   height: calc(100% - 60px);
 }
+
+.charts-area {
+  display: flex;
+  flex-direction: row;
+  margin: 16px auto;
+  justify-content: space-around;
+
+  .total-customer {
+ 
+  }
+}
