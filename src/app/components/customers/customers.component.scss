@@ -64,6 +64,10 @@ th.mat-header-cell {
 td.mat-cell {
   display: flex;
   flex-direction: row;
+  .td-container {
+    width: 100%;
+  }
+
 
   .td-avatar {
     width: 40px;
@@ -148,6 +152,31 @@ td.mat-cell {
   }
 }
 
+.list-item {
+  position: relative;
+  top: -60px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column !important;
+  :nth-child(1n) {
+    margin: 0 4px;
+    align-items: center;
+    :nth-child(1n) {
+      margin: 0 auto 0 -23px;
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+      color: green;
+      position: absolute;
+    }
+  }
+  :nth-child(3n) {
+    margin: -5px auto auto 32px;
+    align-items: center;
+    
+  }
+}
+
 .mat-elevation-z8 {
   position: absolute;
   margin-top: 69px !important;
@@ -163,4 +192,30 @@ td.mat-cell {
   .text-add-contact {
     display: flex;
   }
+}
+
+.shared {
+  width: 30px;
+  height: 30px;
+  margin: auto 16px;
+  border: 3px solid #07b615;
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: #07b615;
+  .mat-icon {
+      font-size: 20px;
+      margin-top: 4px;
+  }
+  &.no-circle {
+    border: none;
+  }
+}
+
+
+.visble {
+  display: block;
 }

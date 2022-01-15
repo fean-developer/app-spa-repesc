@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { AppConfig, APP_CONFIG } from 'src/app/config/app-config';
 import { Customers } from 'src/app/models/customers'
 import { retry, catchError, delay } from 'rxjs/operators';
+import { FormaData } from '../_helpers/format.data';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CustomersService {
 
   constructor(
     private httpClient: HttpClient,
-    @Inject(APP_CONFIG) private config: AppConfig
+    @Inject(APP_CONFIG) private config: AppConfig,
+    private helpers: FormaData
   ) { }
 
   httpOptions = {
@@ -25,7 +27,7 @@ export class CustomersService {
     return this.httpClient.get<Customers[]>(`${this.config.api}/customers`)
       .pipe(
         retry(2), delay(600),
-        catchError(this.handleError))
+        catchError(this.helpers.handleError))
 
   }
 
@@ -33,33 +35,28 @@ export class CustomersService {
     return this.httpClient.post<Customers>(`${this.config.api}/customers`, {})
       .pipe(
         retry(1), delay(600),
-        catchError(this.handleError));
+        catchError(this.helpers.handleError));
   }
 
   public generateCustomer(code: string) {
     return this.httpClient.post<Customers>(`${this.config.api}/customers/automatic`, { repesc: code })
       .pipe(
         retry(1), delay(600),
-        catchError(this.handleError));
+        catchError(this.helpers.handleError));
+  }
+
+  public sharedWithUser(request: any) {
+    return this.httpClient.post<Customers>(`${this.config.api}/customers/shared`, {request})
+      .pipe(
+        retry(1), delay(600),
+        catchError(this.helpers.handleError));
   }
 
   public deleteCustomer(id?: string) {
     return this.httpClient.delete<Customers>(`${this.config.api}/customers/${id}`)
       .pipe(
         retry(1), delay(600),
-        catchError(this.handleError));
+        catchError(this.helpers.handleError));
   }
 
-
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-    }
-    return throwError(errorMessage);
-  };
 }

@@ -1,4 +1,5 @@
 import { Repescs } from './repescs';
+import { User } from './user';
 export class Customers {
     id?: string;
     nome!: string;
@@ -19,6 +20,7 @@ export class Customers {
     celular!: string;
     repesc?: string;
     repescData?: Repescs;
+    sharedWithUser?: Partial<User>
     created_at!: Date;
     user!: string;
 }

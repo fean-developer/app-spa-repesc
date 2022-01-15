@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Repescs } from '../models/repescs';
+import { FormaData } from '../_helpers/format.data';
 import { APP_CONFIG, AppConfig } from './../config/app-config';
 
 @Injectable({
@@ -16,14 +17,15 @@ export class RepescsService {
 
   constructor(
     private httpClient: HttpClient,
-    @Inject(APP_CONFIG) private config: AppConfig
+    @Inject(APP_CONFIG) private config: AppConfig,
+    private helpers: FormaData
   ) { }
 
   public getRepescsByICode(code: string): Observable<Repescs> {
     return this.httpClient.get<Repescs>(`${this.config.api}/repescs/${code}`)
       .pipe(
         retry(2),
-        catchError(this.handleError))
+        catchError(this.helpers.handleError))
 
   }
 
@@ -31,14 +33,14 @@ export class RepescsService {
     return this.httpClient.put(`${this.config.api}/repescs/${id}`, params)
       .pipe(
         retry(),
-        catchError(this.handleError))
+        catchError(this.helpers.handleError))
   }
 
   public getAllRepescs(): Observable<Repescs[]> {
     return this.httpClient.get<Repescs[]>(`${this.config.api}/repescs`)
       .pipe(
         retry(2),
-        catchError(this.handleError))
+        catchError(this.helpers.handleError))
 
   }
 
@@ -52,5 +54,5 @@ export class RepescsService {
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
     return throwError(errorMessage);
-  };
+  }
 }
