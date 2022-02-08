@@ -55,7 +55,15 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <span>Tradutor Repesc on-line</span>
+      <span [routerLink]="['/dashboard']">Tradutor Repesc v1.0</span>
+      <button aria-label="Angular on twitter" [routerLink]="['/customers']" class="ml-16" mat-button mat-riple rel="noopener"
+        title="Clientes">
+        <mat-icon>groups</mat-icon> Clientes
+      </button>
+      <button aria-label="Angular on twitter" [routerLink]="['/repescs']" class="ml-16" mat-button mat-riple rel="noopener"
+        title="Clientes">
+        <mat-icon>border_all</mat-icon> Tabela tradutor
+      </button>
       <div class="spacer"></div>
       <!-- <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular"
         title="Twitter">

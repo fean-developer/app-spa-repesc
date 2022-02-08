@@ -28,7 +28,6 @@ export class CustomersService {
       .pipe(
         retry(2), delay(600),
         catchError(this.helpers.handleError))
-
   }
 
   public generateOneCustomer() {

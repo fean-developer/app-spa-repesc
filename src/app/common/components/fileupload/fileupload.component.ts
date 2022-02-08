@@ -1,7 +1,7 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, Inject, Input } from '@angular/core';
-import { of, Subscription } from 'rxjs';
-import { finalize, delay, catchError } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize, delay } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AppConfig, APP_CONFIG } from './../../../config/app-config';
 import { MatDialog } from '@angular/material/dialog';
@@ -55,7 +55,7 @@ export class FileuploadComponent {
           }
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       this.openSnackBar(error.message)
     }
   }

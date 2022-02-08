@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: ''
+  api: 'https://api-repesc-sim.herokuapp.com/'
 };

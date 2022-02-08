@@ -8,7 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StylesService } from 'src/app/services/styles.service';
 import { CustomersService } from './../../services/customers.service';
-import { Component, ViewChild, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, Input, AfterContentInit } from '@angular/core';
 import {  finalize } from 'rxjs/operators';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -37,7 +37,7 @@ interface Food {
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements OnInit, AfterViewInit {
+export class CustomersComponent implements OnInit, AfterContentInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -65,6 +65,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   @Input() public customer!: Customers;
   
   public users!: Partial<User[]>;
+  protected responseData: any;
 
   animationCreated(animationItem: AnimationItem): void {}
 
@@ -81,7 +82,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   ) { 
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.listCustomers();
     this.retrieveRepescs();
   }
@@ -208,10 +209,12 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onRowClicked(row: any) {
+   onRowClicked(row: any) {
     row.repesc as Repescs;
     this.selectedData = row;
+    console.log(row)
     this.avatarFirstLetter = { firstName: row.nome.substr(0, 1), lastName: row.nome.substr(1) };
+   
   }
 
   public setPropertyStyle(): void {
@@ -223,6 +226,4 @@ export class CustomersComponent implements OnInit, AfterViewInit {
       { style: '--drawer-avatar-color', value: 'rgb(255, 255, 255, 1)', },
     ]);
   }
-
-
 }

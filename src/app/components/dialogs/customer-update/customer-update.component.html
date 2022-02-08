@@ -14,10 +14,6 @@
         <br>
         <mat-divider></mat-divider>
         <div class="actions">
-            <div> <button mat-mini-fab color="primary" *ngIf="!data?.customer.sharedWithUser"  aria-label="Example icon button with a plus one icon">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
             <div>
                 <button mat-mini-fab *ngIf="!data?.customer.sharedWithUser" (click)="openSharedCustomer()" color="accent" aria-label="Example icon button with a plus one icon">
                     <mat-icon>shared</mat-icon>

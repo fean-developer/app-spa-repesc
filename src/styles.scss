@@ -102,8 +102,8 @@ tr.hover-row:not(.example-expanded-row):hover {
 }
 
 .btn-close-mat-drawer {
-  position: absolute;
-  right: 16px;
+  position: relative;
+  left: 16px;
   top: 16px;
   .mat-icon {
     color: $white-000;

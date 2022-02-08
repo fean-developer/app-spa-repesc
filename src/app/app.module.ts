@@ -45,12 +45,12 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FileuploadComponent } from './common/components/fileupload/fileupload.component';
 import { UploadTradutorComponent } from './components/dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
 import {MatSelectModule} from '@angular/material/select';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CustomerUpdateComponent } from './components/dialogs/customer-update/customer-update.component';
+import { SharedModule } from './common/shared/shared.module';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -72,7 +72,6 @@ export function playerFactory() {
     DialogGenerateCustomersComponent,
     DataCustomerComponent,
     FormDataTradutorComponent,
-    FileuploadComponent,
     UploadTradutorComponent,
     DialogAlertComponent,
     CustomerUpdateComponent
@@ -84,34 +83,10 @@ export function playerFactory() {
     HttpClientModule,
     RouterModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatSortModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatRippleModule,
-    MatGridListModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     AppConfigModule,
-    MatButtonToggleModule,
-    MatMenuModule,
-    MatListModule,
-    MatDividerModule,
-    MatPaginatorModule,
-    MatSidenavModule,
-    MatDialogModule,
-    ClipboardModule,
-    MatGridListModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatToolbarModule,
-    MatSelectModule,
     NgApexchartsModule,
     LottieModule.forRoot({ player: playerFactory }),
+    SharedModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
