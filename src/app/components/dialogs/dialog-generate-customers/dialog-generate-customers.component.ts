@@ -1,6 +1,6 @@
 import { Repescs } from 'src/app/models/repescs';
 import { DICTIONARY_VIEW_DATA } from './../constants/generate-customers.constants';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomersService } from './../../../services/customers.service';
 import { Customers } from 'src/app/models/customers';
 import { Component, EventEmitter, Inject } from '@angular/core';
@@ -25,7 +25,6 @@ export class DialogGenerateCustomersComponent {
 
   public formCreate!: FormGroup;
   public disclaimeData: string = '';
-    ;
   public created = new EventEmitter<Customers>();
 
   constructor(
@@ -73,7 +72,7 @@ export class DialogGenerateCustomersComponent {
     this.formCreate = this.builder.group({
       repesc: [inputRepescInvalid, [Validators.required, Validators.minLength(5)]]
     });
-    const repesc = this.formCreate.get('repesc')?.patchValue(this.frm.repesc.value)
+     this.formCreate.get('repesc')?.patchValue(this.frm.repesc.value)
   }
 
   onCreateCustomer() {
