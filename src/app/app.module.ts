@@ -39,16 +39,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DialogGenerateCustomersComponent } from './components/dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { DataCustomerComponent } from './components/dialogs/data-customer/data-customer.component';
 import { FormDataTradutorComponent } from './components/tradutor/form-data-tradutor/form-data-tradutor.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 
 import { AppRoutingModule } from './app-routing.module';
 import { UploadTradutorComponent } from './components/dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
-import {MatSelectModule} from '@angular/material/select';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { CustomerUpdateComponent } from './components/dialogs/customer-update/customer-update.component';
 import { SharedModule } from './common/shared/shared.module';
 
@@ -84,7 +80,6 @@ export function playerFactory() {
     RouterModule,
     BrowserAnimationsModule,
     AppConfigModule,
-    NgApexchartsModule,
     LottieModule.forRoot({ player: playerFactory }),
     SharedModule
   ],
