@@ -1,5 +1,6 @@
 import { CustomersService } from './../../services/customers.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 
 
 @Component({
@@ -21,4 +22,6 @@ export class DashboardComponent implements OnInit {
   goToRespecsTranslate() {
 
   }
+
+ 
 }
