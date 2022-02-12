@@ -9,6 +9,7 @@ import { delay, first } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
+import Context from 'src/app/_helpers/context-data';
 
 
 
@@ -58,7 +59,8 @@ export class TradutorComponent implements OnInit {
     private repescsServices: RepescsService,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private _context: Context<Repescs[]>) {
     this.isEditable = false;
   }
 
@@ -66,15 +68,23 @@ export class TradutorComponent implements OnInit {
   get user() { return this.userService.userValue}
 
   ngOnInit(): void {
-    this.getRepespcs();
+   
+    if(this._context.getContext()) {
+      this.repescs = Object.assign(this.repescs, this._context.getContext());
+      this.sorted = this.repescs.slice();
+    } else {
+      this.getRepespcs();
+    }
+  
     this.createForm();
-    this.dialog._getAfterAllClosed().subscribe(() => this.getRepespcs() )
+    this.dialog._getAfterAllClosed().subscribe(() => this.repescs )
   }
 
-  private getRepespcs() {
+  private async getRepespcs() {
     this.repescsServices.getAllRepescs()
       .subscribe(data => {
         this.repescs = data;
+        this._context.setContext(this.repescs);
         this.sorted = this.repescs.slice();
       });
   }
@@ -136,6 +146,7 @@ export class TradutorComponent implements OnInit {
       panelClass: 'modal-container',
       data: {
         ...{repesc},
+        list: this.repescs
       }
     });
 

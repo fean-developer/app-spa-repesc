@@ -1,3 +1,4 @@
+import Context from 'src/app/_helpers/context-data';
 import { UserService } from './../../services/user.service';
 import { CustomerUpdateComponent } from './../dialogs/customer-update/customer-update.component';
 import { Customers } from 'src/app/models/customers';
@@ -37,7 +38,7 @@ interface Food {
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements OnInit, AfterContentInit {
+export class CustomersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -78,38 +79,33 @@ export class CustomersComponent implements OnInit, AfterContentInit {
     private dialog: MatDialog,
     private dialogViewAndEditData: MatDialog,
     private fomatData: FormaData,
-    private usersServices: UserService
+    private usersServices: UserService,
+    private _context: Context<Repescs[]>,
+    private _customersContext: Context<Customers[]>
   ) { 
   }
 
-  ngAfterContentInit(): void {
-    this.listCustomers();
-    this.retrieveRepescs();
-  }
-
   ngOnInit(): void {
-    this.showUsers();
+    
+    this.listCustomers();
+
+    if(this._context.getContext()) {
+      this.repescs = this._context.getContext();
+    } else {
+    this.retrieveRepescs(); 
+    }
   }
 
   openDialog() {
     this.dialogRef = this.dialog.open(DialogAlertComponent,{disableClose:true, data: { item : `<br /><br />CPF:  ${ this.fomatData.formatCpf(this.selectedData?.cpf)} <br /> ${this.selectedData?.nome}`}});
   }
 
-  openModalDataAndUpdate() {
-     this.dialogViewAndEditData.open(CustomerUpdateComponent, { 
-      data: { 
-        customer: this.selectedData, 
-        user: this.users 
-      }, 
-      width: '100%',
-      height: 'auto',
-      disableClose: true
-    });
-  }
-
   openGenerateDialog(event: MouseEvent, byRepesc?: boolean, byForm?: boolean): void {
     const dialogRef = this.dialog.open(DialogGenerateCustomersComponent, {
       panelClass: 'modal-container',
+      data: {
+        list: this.repescs
+      }
     });
 
     if (byRepesc) dialogRef.componentInstance.byRepesc = true;
@@ -134,14 +130,14 @@ export class CustomersComponent implements OnInit, AfterContentInit {
 
   listCustomers(): void {
     this.service.getAllCustomers()
-     .subscribe(data => {
+      .subscribe(data => {
         this.customers = data;
         this.customers.filter((row) => {
           row.repescData = this.repescs.find((el) => el.code == row.repesc)
         });
+        this.updateDataSource();
         this.isLoading = false
         this.hasData = this.customers.length > 0 ? true : false;
-        this.updateDataSource()
       });
   }
  

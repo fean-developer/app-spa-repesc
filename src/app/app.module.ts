@@ -1,3 +1,4 @@
+import  Context  from 'src/app/_helpers/context-data';
 import { FormaData } from 'src/app/_helpers/format.data';
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -71,7 +72,7 @@ export function playerFactory() {
   providers: [RepescsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  FormaData],
+  FormaData, Context],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

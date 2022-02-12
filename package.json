@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && yarn install && yarn start",
     "ngh:build": "ng build --prod",
-    "ngh:deploy": "ngh --branch=master"
+    "ngh:deploy": "ng deploy --branch=master --base-href=/app-spa-repesc/ --repo=https://github.com/fean-developer/app-spa-repesc.git --no-silent"
   },
   "engines": {
     "node": "14.15.4",

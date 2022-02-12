@@ -26,7 +26,7 @@ export class CustomersService {
   public getAllCustomers(): Observable<Customers[]> {
     return this.httpClient.get<Customers[]>(`${this.config.api}/customers`)
       .pipe(
-        retry(2), delay(600),
+        retry(1), delay(600),
         catchError(this.helpers.handleError))
   }
 

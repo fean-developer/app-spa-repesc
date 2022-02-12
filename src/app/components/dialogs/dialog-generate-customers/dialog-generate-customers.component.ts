@@ -76,32 +76,24 @@ export class DialogGenerateCustomersComponent {
   }
 
   onCreateCustomer() {
-
     if (this.byRepesc && this.formCreate.valid) {
       this.loading = true;
-
       let code = this.formatData.uppercase(this.frm.repesc.value);
-
       let repesc!: string | undefined;
-      this.repescService.getRepescsByICode(code)
-        .subscribe(el => {
-          this.repesc = [el];
-          repesc = this.repesc?.find((el) => el.code == code)?.code;
-          if (repesc != undefined) {
-            this.customerService.generateCustomer(`${code}`)
-              .subscribe((e) => {
-                this.customer = e;
-                if (e) {
-                  this.loading = false;
-                  this.data = e;
-                }
-              });
-          } else {
-            this.formCreate.setErrors({ repescNotFound: true });
-            this.loading = false;
-          }
-        });
-
+      repesc = this.data.list.find((el: { code: string; }) => el.code == code).code;
+      if (repesc != undefined) {
+        this.customerService.generateCustomer(`${code}`)
+          .subscribe((e) => {
+            this.customer = e;
+            if (e) {
+              this.loading = false;
+              this.data = e;
+            }
+          });
+      } else {
+        this.formCreate.setErrors({ repescNotFound: true });
+        this.loading = false;
+      }
     }
   }
 }
