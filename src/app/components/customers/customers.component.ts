@@ -1,6 +1,5 @@
 import Context from 'src/app/_helpers/context-data';
 import { UserService } from './../../services/user.service';
-import { CustomerUpdateComponent } from './../dialogs/customer-update/customer-update.component';
 import { Customers } from 'src/app/models/customers';
 import { DialogGenerateCustomersComponent } from './../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { FormaData } from 'src/app/_helpers/format.data';
@@ -9,7 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StylesService } from 'src/app/services/styles.service';
 import { CustomersService } from './../../services/customers.service';
-import { Component, ViewChild, OnInit, AfterViewInit, Input, AfterContentInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import {  finalize } from 'rxjs/operators';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -60,7 +59,7 @@ export class CustomersComponent implements OnInit {
   public dialogGenerateRef!: MatDialogRef<any>;
 
   options: AnimationOptions = {
-    path: '/assets/images/lottie/add-contact.json',
+    path: 'assets/images/lottie/add-contact.json',
   };
 
   @Input() public customer!: Customers;
@@ -77,11 +76,9 @@ export class CustomersComponent implements OnInit {
     private clipboard: Clipboard,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private dialogViewAndEditData: MatDialog,
     private fomatData: FormaData,
     private usersServices: UserService,
     private _context: Context<Repescs[]>,
-    private _customersContext: Context<Customers[]>
   ) { 
   }
 
