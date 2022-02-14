@@ -72,8 +72,23 @@
         <mat-icon>upload_file</mat-icon> 
       </button>
     </mat-toolbar>
-    <mat-card >
+    <div class="lottie-table-not-data" *ngIf="!sorted">
+      
+      <ng-lottie width="400px"
+      height="400px"
+      containerClass="lottie-table-not-data"
+      [styles]="styles"
+      [options]="options" 
+      (animationCreated)="animationCreated($event)">
+    
+    </ng-lottie>
+    <div class="text-table-load text-subtitle mt-32 text-center">
+      Aguarde!, estamos carregando os dados
+    </div>
+    </div>
+    <mat-card *ngIf="sorted" >
       <mat-card-title>Tradutor Repesc</mat-card-title>
+      
       <mat-card-content>
         <table matSort (matSortChange)="sortData($event)" class="table full-size-80" >
           <thead class="table-header custom-table-header">

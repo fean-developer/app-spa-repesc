@@ -101,3 +101,11 @@ tbody {
 .invalid {
   color: red !important;
 }
+
+.lottie-table-not-data {
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}

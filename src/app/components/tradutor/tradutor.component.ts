@@ -1,3 +1,4 @@
+import { AnimationItem } from 'lottie-web';
 import { REPESC_TABLE_DICTIONARY } from './../dialogs/constants/repesc-table.constants';
 import { UserService } from './../../services/user.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -10,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import Context from 'src/app/_helpers/context-data';
+import { AnimationOptions } from 'ngx-lottie';
 
 
 
@@ -29,6 +31,16 @@ export class TradutorComponent implements OnInit {
   changEditablValue = new EventEmitter();
   public avatarFirstLetter!: { firstName: string, lastName: string }
   public submitted!: boolean;
+  options: AnimationOptions = {
+    path: 'assets/images/lottie/tradutor-load.json'
+  };
+
+  styles: Partial<CSSStyleDeclaration> = {
+    maxWidth: '40%',
+    margin: '30% auto',
+  }
+
+  animationCreated(animationItem: AnimationItem): void {}
 
   public tableHeader = [
     { id: 'range_cpf_digit', text: '6 e 7 Digito' },
