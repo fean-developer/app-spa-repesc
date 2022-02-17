@@ -26,9 +26,10 @@ import player from 'lottie-web';
 import { AppRoutingModule } from './app-routing.module';
 import { UploadTradutorComponent } from './components/dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
-import {MatSelectModule} from '@angular/material/select';
 import { CustomerUpdateComponent } from './components/dialogs/customer-update/customer-update.component';
 import { SharedModule } from './common/shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { _repescsReducer } from './store/reducer';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -63,7 +64,8 @@ export function playerFactory() {
     BrowserAnimationsModule,
     AppConfigModule,
     LottieModule.forRoot({ player: playerFactory }),
-    SharedModule
+    SharedModule,
+    StoreModule.forRoot({repescs: _repescsReducer})
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

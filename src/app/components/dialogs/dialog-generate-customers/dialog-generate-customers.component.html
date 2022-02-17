@@ -9,9 +9,9 @@
     <div class="mat-dialog-notice mt-16 mb-16" [innerHTML]="notice">
     </div>
 
-    <form [formGroup]="formCreate" class="login-form" *ngIf="byRepesc" (ngSubmit)="onCreateCustomer()">
-        <div>
-            <p class="mat-form-field--inline">
+    <form [formGroup]="formCreate" class="login-form"  (ngSubmit)="onCreateCustomer()">
+        <div >
+            <p class="mat-form-field--inline" [hidden]="data?.repesc">
                 <mat-form-field appearance="standard" class="min-width"
                     [ngClass]="{'ng-dirty ng-touched mat-form-field-invalid ng-invalid': formCreate?.errors?.repescNotFound && formCreate.dirty}">
                     <mat-label>Codigo</mat-label>
@@ -31,7 +31,7 @@
         </div>
 
         <div mat-dialog-actions *ngIf="byRepesc && !data?.nome">
-
+    
             <button mat-raised-button type="submit" primary color="accent" >
                 <span *ngIf="!loading"> Gerar Massa de Teste</span>
                 <div *ngIf="loading" class="loading-buton">

@@ -1,3 +1,4 @@
+import { SetContext } from './../../_helpers/context-data';
 import Context from 'src/app/_helpers/context-data';
 import { UserService } from './../../services/user.service';
 import { Customers } from 'src/app/models/customers';
@@ -8,11 +9,11 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StylesService } from 'src/app/services/styles.service';
 import { CustomersService } from './../../services/customers.service';
-import { Component, ViewChild, OnInit, Input } from '@angular/core';
-import {  finalize } from 'rxjs/operators';
+import { Component, ViewChild, OnInit, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { finalize, delay } from 'rxjs/operators';
 
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { RepescsService } from 'src/app/services/repescs.service';
 import { Repescs } from 'src/app/models/repescs';
@@ -37,17 +38,19 @@ interface Food {
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements OnInit {
+export class CustomersComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
   @ViewChild(Customers) selectedData!: Customers;
   @ViewChild('sidenav') sidenav!: MatSidenav;
   
   displayedColumns: string[] = ['nome'];
   public dataSource!: MatTableDataSource<Customers>;
   public customers: Customers[] = [];
-  public repescs!: Repescs[];
+  public repescs!: SetContext<Repescs[]>;
+  public dataCustomers!: SetContext<Customers[]>;
   public shared: boolean = false;
 
   public avatarFirstLetter!: { firstName: string, lastName: string }
@@ -79,17 +82,26 @@ export class CustomersComponent implements OnInit {
     private fomatData: FormaData,
     private usersServices: UserService,
     private _context: Context<Repescs[]>,
+    private changed: ChangeDetectorRef
   ) { 
   }
 
-  ngOnInit(): void {
-    
-    this.listCustomers();
 
-    if(this._context.getContext()) {
-      this.repescs = this._context.getContext();
+  ngAfterViewInit(): void {
+    setTimeout(() => this.updateDataSource(), 800)
+  }
+  
+  
+  ngOnInit(): void {
+    if ( this._context.getContext()?.repescs ) {
+      this.repescs = this._context.getContext()?.repescs;
     } else {
-    this.retrieveRepescs(); 
+      this.retrieveRepescs();
+    }
+    if ( this._context.getContext()?.customers ) {
+      this.customers = this._context.getContext()?.customers as Customers[];
+    } else {
+      this.listCustomers();
     }
   }
 
@@ -110,9 +122,14 @@ export class CustomersComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(
       () => {
+        this.customers.push(dialogRef.componentInstance.customer);
+        this._context.setContext({customers: this.customers})
+
         dialogRef.componentInstance.byForm = false;
         dialogRef.componentInstance.byRepesc = false;
-        this.customers.push(dialogRef.componentInstance.customer);
+        this.isLoading = false
+        this.hasData = this.customers.length > 0 ? true : false;
+        this.changed.detectChanges();
       }
     )
     event.preventDefault();
@@ -126,23 +143,31 @@ export class CustomersComponent implements OnInit {
   }
 
   listCustomers(): void {
-    this.service.getAllCustomers()
-      .subscribe(data => {
-        this.customers = data;
-        this.customers.filter((row) => {
-          row.repescData = this.repescs.find((el) => el.code == row.repesc)
+    try {
+      this.service.getAllCustomers()
+        .subscribe(data => {
+          this.customers = data;
+          this.customers.find((row) => {
+            row.repescData = this.repescs.find((el: { code: string | undefined; }) => el.code == row.repesc)
+          });
+          this._context.setContext({customers: this.customers});
+          this.isLoading = false
+          this.hasData = this.customers.length > 0 ? true : false;
         });
-        this.updateDataSource();
-        this.isLoading = false
-        this.hasData = this.customers.length > 0 ? true : false;
-      });
-  }
- 
-  updateDataSource() {
-    this.dataSource = new MatTableDataSource(this.customers);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+        
+      } catch (error) {
+        this._snackBar.open('Erro ao gerar os dados','', {
+          panelClass: 'error', 
+          duration: 5000
+        });
+      }
+    }
+    
+    updateDataSource() {
+      this.dataSource = new MatTableDataSource<Customers>(this.customers);
+      this.dataSource.paginator = this.paginator;    
+      this.dataSource.sort = this.sort;
+    }
 
   openSharedCustomer() {
     this.shared = !this.shared;
@@ -166,7 +191,9 @@ export class CustomersComponent implements OnInit {
                     duration: 5000
                   })
                   this.customers = this.customers.filter((el) => el.id != id);
+                  console.log(this.customers)
                   this.updateDataSource();
+                  this.changed.detectChanges();
                 })
             }
           }
@@ -205,7 +232,6 @@ export class CustomersComponent implements OnInit {
    onRowClicked(row: any) {
     row.repesc as Repescs;
     this.selectedData = row;
-    console.log(row)
     this.avatarFirstLetter = { firstName: row.nome.substr(0, 1), lastName: row.nome.substr(1) };
    
   }

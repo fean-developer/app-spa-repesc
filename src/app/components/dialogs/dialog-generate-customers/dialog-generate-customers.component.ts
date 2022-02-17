@@ -39,7 +39,7 @@ export class DialogGenerateCustomersComponent {
   get notice() { return DICTIONARY_VIEW_DATA.create_notice }
   get frm() { return this.formCreate.controls }
   get cerate_data_constant() {
-    return this.byRepesc 
+    return !this.data?.repesc
     ? DICTIONARY_VIEW_DATA.create_with_input
     : DICTIONARY_VIEW_DATA.create_without_input;
   }
@@ -76,12 +76,12 @@ export class DialogGenerateCustomersComponent {
   }
 
   onCreateCustomer() {
-    if (this.byRepesc && this.formCreate.valid) {
-      this.loading = true;
-      let code = this.formatData.uppercase(this.frm.repesc.value);
-      let repesc!: string | undefined;
-      repesc = this.data.list.find((el: { code: string; }) => el.code == code).code;
-      if (repesc != undefined) {
+    try {
+      if (this.byRepesc && this.formCreate.valid) {
+        this.loading = true;
+        let code = this.formatData.uppercase(this.frm.repesc.value);
+        let repesc!: string | undefined;
+        repesc = this.data.list.find((el: { code: string; }) => el.code == code).code;
         this.customerService.generateCustomer(`${code}`)
           .subscribe((e) => {
             this.customer = e;
@@ -90,10 +90,11 @@ export class DialogGenerateCustomersComponent {
               this.data = e;
             }
           });
-      } else {
-        this.formCreate.setErrors({ repescNotFound: true });
-        this.loading = false;
       }
+    } catch (error) {
+      this.formCreate.setErrors({ repescNotFound: true });
+      this.loading = false;
     }
+    
   }
 }

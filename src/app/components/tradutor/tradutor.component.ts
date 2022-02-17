@@ -12,7 +12,8 @@ import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tra
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import Context from 'src/app/_helpers/context-data';
 import { AnimationOptions } from 'ngx-lottie';
-
+import { Store } from '@ngrx/store';
+import { repescsAction } from 'src/app/store/actions';
 
 
 @Component({
@@ -72,7 +73,8 @@ export class TradutorComponent implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private _context: Context<Repescs[]>) {
+    private _context: Context<Repescs[]>,
+    private store: Store) {
     this.isEditable = false;
   }
 
@@ -81,8 +83,8 @@ export class TradutorComponent implements OnInit {
 
   ngOnInit(): void {
    
-    if(this._context.getContext()) {
-      this.repescs = Object.assign(this.repescs, this._context.getContext());
+    if(this._context.getContext()?.repescs) {
+      this.repescs = Object.assign(this.repescs, this._context.getContext().repescs);
       this.sorted = this.repescs.slice();
     } else {
       this.getRepespcs();
@@ -96,7 +98,7 @@ export class TradutorComponent implements OnInit {
     this.repescsServices.getAllRepescs()
       .subscribe(data => {
         this.repescs = data;
-        this._context.setContext(this.repescs);
+        this.store.dispatch(repescsAction.saveRepescsData({repescs: data}));
         this.sorted = this.repescs.slice();
       });
   }
