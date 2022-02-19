@@ -30,6 +30,8 @@ import { CustomerUpdateComponent } from './components/dialogs/customer-update/cu
 import { SharedModule } from './common/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { _repescsReducer } from './store/reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -65,7 +67,8 @@ export function playerFactory() {
     AppConfigModule,
     LottieModule.forRoot({ player: playerFactory }),
     SharedModule,
-    StoreModule.forRoot({repescs: _repescsReducer})
+    StoreModule.forRoot({selectRepescs: _repescsReducer}),
+    StoreDevtoolsModule.instrument(),
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -6,14 +6,17 @@ import { Component, Input, OnInit, EventEmitter } from '@angular/core';
 import { Repescs } from 'src/app/models/repescs';
 import { RepescsService } from 'src/app/services/repescs.service';
 import { Sort } from '@angular/material/sort';
-import { delay, first } from 'rxjs/operators';
+import { delay, first, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
-import Context from 'src/app/_helpers/context-data';
 import { AnimationOptions } from 'ngx-lottie';
-import { Store } from '@ngrx/store';
 import { repescsAction } from 'src/app/store/actions';
+import { Subscription } from 'rxjs';
+
+import { select, Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducer';
+import { selecRepescs } from 'src/app/store/selector';
 
 
 @Component({
@@ -67,14 +70,15 @@ export class TradutorComponent implements OnInit {
   ]
   public selectedData: any;
   public dictionary: any = REPESC_TABLE_DICTIONARY.GENERATE_CUSTOMER_DESCRIPTION;
+  
+  public subscription: Subscription = new Subscription();
 
   constructor(
     private repescsServices: RepescsService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private _context: Context<Repescs[]>,
-    private store: Store) {
+    private store$: Store<AppState>) {
     this.isEditable = false;
   }
 
@@ -83,22 +87,34 @@ export class TradutorComponent implements OnInit {
 
   ngOnInit(): void {
    
-    if(this._context.getContext()?.repescs) {
-      this.repescs = Object.assign(this.repescs, this._context.getContext().repescs);
-      this.sorted = this.repescs.slice();
-    } else {
-      this.getRepespcs();
-    }
+  this.subscribeRepescs()
   
     this.createForm();
     this.dialog._getAfterAllClosed().subscribe(() => this.repescs )
   }
 
-  private async getRepespcs() {
+  private subscribeRepescs() {
+    this.subscription.add(
+      this.store$.pipe(
+        select(selecRepescs),
+        take(2)
+      ).subscribe((state: AppState) => {
+        if (!state) return;
+        if (state.repescs?.length > 0 ) {
+          console.log('STATE 2', state);
+          this.repescs = state.repescs;
+        } else {
+          this.getRepespcs();
+        }
+      }))
+      console.log(this.repescs)
+  }
+
+  private getRepespcs() {
     this.repescsServices.getAllRepescs()
       .subscribe(data => {
-        this.repescs = data;
-        this.store.dispatch(repescsAction.saveRepescsData({repescs: data}));
+        //this.repescs = data;
+        this.store$.dispatch(repescsAction.saveRepescsData({ repescs: data}));
         this.sorted = this.repescs.slice();
       });
   }
