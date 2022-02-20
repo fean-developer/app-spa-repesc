@@ -30,7 +30,6 @@
     <div *ngIf="
     selectedData?.products.cp_puro > '0' ||
     selectedData?.products.cp_auto > '0' ||
-    selectedData?.products.cp_moto > '0' ||
     selectedData?.products.cp_renda > '0' ||
     selectedData?.products.cdc > '0' ||
     selectedData?.products.cartao > '0' ||
@@ -42,7 +41,6 @@
     <br>
       <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cp_puro > '0'? 'CP PURO' : '' }}</div>
       <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cp_auto > '0'? 'CP AUTO' : '' }}</div>
-      <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cp_moto > '0'? 'CP MOTO' : '' }}</div>
       <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cp_renda > '0'? 'CP RENDA' : '' }}</div>
       <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cdc > '0'? 'CDC' : '' }}</div>
       <div class="text-size-12 text-subtitle ml-16">{{ selectedData?.products.cartao > '0'? 'CARTAO' : '' }}</div>
@@ -114,11 +112,6 @@
                 {{element.products.cp_auto}}</td>
                 <td class="cell-row center" [ngClass]="{'colored-deadline': element.products.cp_auto_deadline > '0'}">
                   {{ element.products.cp_auto_deadline > '0' ? element.products.cp_auto_deadline + 'x' : element.products.cp_auto_deadline}} 
-                </td>
-              <td class="cell-row center" [ngClass]="{'colored': element.products.cp_moto > '0'}">
-                {{element.products.cp_moto}}</td>
-                <td class="cell-row center" [ngClass]="{'colored-deadline': element.products.cp_moto_deadline > '0'}">
-                  {{ element.products.cp_moto_deadline > '0' ? element.products.cp_moto_deadline + 'x' : element.products.cp_moto_deadline }} 
                 </td>
               <td class="cell-row center" [ngClass]="{'colored': element.products.cp_renda > '0'}">
                 {{element.products.cp_renda}}

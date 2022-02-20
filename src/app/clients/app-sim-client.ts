@@ -12,7 +12,6 @@ export class AppSimClient {
         this.clientService.connectSim()
         .subscribe((d) => {
           this.responseData = d;
-          console.log('DATA: ',d)
         })
      }
 }

@@ -8,11 +8,10 @@ export interface SetContext<T> {
 
     private _context!: SetContext<T>;
     
-    public setContext(value: SetContext<T>) {this._context = {...value,...this._context}; }
+    public setContext(value: SetContext<T>) {this._context = {...this._context,...value}}
     public getContext(): SetContext<T> { return this._context }
     
     constructor() {
-        console.log(this._context);
     }
 }
 

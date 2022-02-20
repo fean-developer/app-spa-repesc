@@ -6,13 +6,13 @@ import { Component, Input, OnInit, EventEmitter } from '@angular/core';
 import { Repescs } from 'src/app/models/repescs';
 import { RepescsService } from 'src/app/services/repescs.service';
 import { Sort } from '@angular/material/sort';
-import { delay, first, take } from 'rxjs/operators';
+import { delay, first, skip, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { AnimationOptions } from 'ngx-lottie';
 import { repescsAction } from 'src/app/store/actions';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducer';
@@ -31,7 +31,6 @@ export class TradutorComponent implements OnInit {
   public rowEditable!: Repescs;
   public sorted!: Repescs[];
   public updateForm!: FormGroup;
-  @Input() public isEditable: boolean = false;
   changEditablValue = new EventEmitter();
   public avatarFirstLetter!: { firstName: string, lastName: string }
   public submitted!: boolean;
@@ -50,13 +49,10 @@ export class TradutorComponent implements OnInit {
     { id: 'range_cpf_digit', text: '6 e 7 Digito' },
     { id: 'code', text: 'Repesc' },
     { id: 'forwardScreen', text: 'Desvio' },
-    // { id: 'description', text: 'Descrição' },
     { id: 'products.cp_puro', text: 'CP' },
     { id: 'products.cp_puro_deadline', text: 'CP Prazo Máximo' },
     { id: 'products.cp_auto', text: 'AUTO' },
     { id: 'products.cp_auto_deadline', text: 'AUTO Prazo Máximo' },
-    { id: 'products.cp_moto', text: 'MOTO' },
-    { id: 'products.cp_moto_deadline', text: 'MOTO Prazo Máximo' },
     { id: 'products.cp_renda', text: 'RENDA' },
     { id: 'products.cp_renda_deadline', text: 'RENDA Prazo Máximo' },
     { id: 'products.cdc', text: 'CDC' },
@@ -71,7 +67,8 @@ export class TradutorComponent implements OnInit {
   public selectedData: any;
   public dictionary: any = REPESC_TABLE_DICTIONARY.GENERATE_CUSTOMER_DESCRIPTION;
   
-  public subscription: Subscription = new Subscription();
+  //public subscription: Subscription = new Subscription();
+  public subscription$!: Observable<AppState>;
 
   constructor(
     private repescsServices: RepescsService,
@@ -79,7 +76,6 @@ export class TradutorComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private store$: Store<AppState>) {
-    this.isEditable = false;
   }
 
   get frm() { return this.updateForm.controls }
@@ -94,38 +90,40 @@ export class TradutorComponent implements OnInit {
   }
 
   private subscribeRepescs() {
-    this.subscription.add(
-      this.store$.pipe(
-        select(selecRepescs),
-        take(2)
-      ).subscribe((state: AppState) => {
-        if (!state) return;
-        if (state.repescs?.length > 0 ) {
-          console.log('STATE 2', state);
-          this.repescs = state.repescs;
+    this.subscription$ = this.store$.select(selecRepescs);
+     this.subscription$.subscribe(
+       (e) => {
+         let c = Object.values(e)
+        if(c[0].repescs.length == 0) {
+           this.getRepespcs();
         } else {
-          this.getRepespcs();
-        }
-      }))
-      console.log(this.repescs)
+          this.repescs = c[0].repescs;
+          this.sorted = this.repescs.slice();
+        }                   
+      }
+     )
   }
 
-  private getRepespcs() {
-    this.repescsServices.getAllRepescs()
-      .subscribe(data => {
-        //this.repescs = data;
-        this.store$.dispatch(repescsAction.saveRepescsData({ repescs: data}));
-        this.sorted = this.repescs.slice();
-      });
+  private async getRepespcs() {
+    try {
+      const response = this.repescsServices.getAllRepescs();
+      response
+      .pipe(
+        take(1)
+      ).subscribe(
+        (data) => {
+          if( data.length > 0) {
+            this.store$.dispatch(repescsAction.saveRepescsData({ repescs: data}));
+          }
+        }
+      )
+    } catch (error: any) {
+      throw (error.message)
+    }
   }
 
   onRowClicked(row: any) {
-    this.isEditable = true;
     this.selectedData = row;
-    this.changEditablValue.emit({ editable: this.isEditable });
-    if (row && !row.editable) {
-      row.editable = this.isEditable;
-    }
     this.rowEditable = row;
     this.setValues(row);
     this.avatarFirstLetter = { firstName: 'p', lastName: '' };
@@ -149,8 +147,6 @@ export class TradutorComponent implements OnInit {
         case 'products.cp_puro_deadline': return compare(a.products.cp_puro_deadline as string, b.products.cp_puro_deadline as string, isAsc);
         case 'products.cp_auto': return compare(a.products.cp_auto as string, b.products.cp_auto as string, isAsc);
         case 'products.cp_auto_deadline': return compare(a.products.cp_auto_deadline as string, b.products.cp_auto_deadline as string, isAsc);
-        case 'products.cp_moto': return compare(a.products.cp_moto as string, b.products.cp_moto as string, isAsc);
-        case 'products.cp_moto_deadline': return compare(a.products.cp_moto_deadline as string, b.products.cp_moto_deadline as string, isAsc);
         case 'products.cp_renda': return compare(a.products.cp_renda as string, b.products.cp_renda as string, isAsc);
         case 'products.cp_renda_deadline': return compare(a.products.cp_renda_deadline as string, b.products.cp_renda_deadline as string, isAsc);
         case 'products.cdc': return compare(a.products.cdc as string, b.products.cdc as string, isAsc);
@@ -200,7 +196,6 @@ export class TradutorComponent implements OnInit {
       products: this.formBuilder.group({
         cartao: [null],
         cp_auto: [null],
-        cp_moto: [null],
         cp_puro: [null],
         cp_renda: [null],
         cdc: [null]
@@ -219,7 +214,6 @@ export class TradutorComponent implements OnInit {
 
     let products = {
       cartao: repesc.products.cartao,
-      cp_auto: repesc.products.cp_auto,
       cp_moto: repesc.products.cp_moto,
       cp_puro: repesc.products.cp_puro,
       cp_renda: repesc.products.cp_renda,
@@ -230,7 +224,6 @@ export class TradutorComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     this.repescsServices.update(this.rowEditable.code, this.updateForm.value)
       .pipe(delay(0), first())
       .subscribe({

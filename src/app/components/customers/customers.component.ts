@@ -88,7 +88,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.updateDataSource(), 800)
+    setTimeout(() => { this.updateDataSource();  this.changed.detectChanges();} , 800)
   }
   
   
@@ -100,6 +100,8 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     }
     if ( this._context.getContext()?.customers ) {
       this.customers = this._context.getContext()?.customers as Customers[];
+      this.isLoading = false
+      this.hasData = this.customers.length > 0 ? true : false;
     } else {
       this.listCustomers();
     }
@@ -122,13 +124,15 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     
     dialogRef.afterClosed().subscribe(
       () => {
-        this.customers.push(dialogRef.componentInstance.customer);
-        this._context.setContext({customers: this.customers})
-
+        if ( dialogRef.componentInstance.customer ) {
+          this.customers.push(dialogRef.componentInstance.customer);
+        }
         dialogRef.componentInstance.byForm = false;
         dialogRef.componentInstance.byRepesc = false;
         this.isLoading = false
         this.hasData = this.customers.length > 0 ? true : false;
+        this._context.setContext({customers: this.customers});
+        this.updateDataSource();
         this.changed.detectChanges();
       }
     )
@@ -150,6 +154,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
           this.customers.find((row) => {
             row.repescData = this.repescs.find((el: { code: string | undefined; }) => el.code == row.repesc)
           });
+          this._context.setContext({repescs: this.repescs});
           this._context.setContext({customers: this.customers});
           this.isLoading = false
           this.hasData = this.customers.length > 0 ? true : false;
@@ -191,7 +196,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
                     duration: 5000
                   })
                   this.customers = this.customers.filter((el) => el.id != id);
-                  console.log(this.customers)
+                  this._context.setContext({customers: this.customers.filter((el) => el.id != id)});
                   this.updateDataSource();
                   this.changed.detectChanges();
                 })

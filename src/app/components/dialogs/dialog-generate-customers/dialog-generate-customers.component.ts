@@ -7,7 +7,7 @@ import { Component, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomersComponent } from '../../customers/customers.component';
 import { FormaData } from 'src/app/_helpers/format.data';
-import { RepescsService } from 'src/app/services/repescs.service';
+import  Context  from 'src/app/_helpers/context-data';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class DialogGenerateCustomersComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private builder: FormBuilder,
     private formatData: FormaData,
-    private repescService: RepescsService,
+    private _context: Context<Customers[]>,
   ) {}
 
   get notice() { return DICTIONARY_VIEW_DATA.create_notice }
@@ -61,6 +61,11 @@ export class DialogGenerateCustomersComponent {
       .subscribe((e) => {
         this.customer = e;
         if (e) {
+          const customers = this._context.getContext().customers;
+          if(customers && customers.length > 0 ) {
+             customers.push(e);
+             this._context.setContext({customers});
+          }
           this.loading = false;
           this.customer = this.data.repesc == null ?  e : this.data
         }

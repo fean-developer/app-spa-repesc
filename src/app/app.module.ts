@@ -67,7 +67,7 @@ export function playerFactory() {
     AppConfigModule,
     LottieModule.forRoot({ player: playerFactory }),
     SharedModule,
-    StoreModule.forRoot({selectRepescs: _repescsReducer}),
+    StoreModule.forRoot({stateRepescs: _repescsReducer}),
     StoreDevtoolsModule.instrument(),
   ],
   schemas: [
