@@ -6,6 +6,9 @@ import { catchError, delay, map, retry } from 'rxjs/operators';
 import { AppConfig, APP_CONFIG } from '../config/app-config';
 import { User } from '../models/user';
 import { FormaData } from '../_helpers/format.data';
+import   CryptoJS  from 'crypto-js';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,7 @@ export class UserService {
   public destroyUser!: User;
 
   constructor(
+
     private http: HttpClient,
     @Inject(APP_CONFIG) private config: AppConfig,
     private router: Router,
@@ -32,7 +36,8 @@ export class UserService {
   }
 
   public authenticate(document: string, password: string) {
-    return this.http.post<User>(`${this.config.api}/users/authenticate`, { document, password })
+    const request = { request: this.encrypt(JSON.stringify({ document, password}))};
+    return this.http.post<User>(`${this.config.api}/users/authenticate`, request)
       .pipe(delay(0), map((user: User) => {
         localStorage.setItem('_hash', JSON.stringify(user));
         this.userSubject.next(user);
@@ -54,5 +59,18 @@ export class UserService {
       this.userSubject.next(this.destroyUser);
       this.router.navigate(['/']);
     })
+  }
+
+
+  public encrypt(value: any): string {
+    if (value !== undefined && value !== null) {
+      return CryptoJS.AES.encrypt(value.toString(), environment.ENCRYPT_KEY as string ).toString();
+    } return '';
+  }
+
+  public decrypt(value: any): string {
+    if (value !== undefined && value !== null) {
+      return CryptoJS.AES.decrypt(value, environment.ENCRYPT_KEY as string).toString(CryptoJS.enc.Utf8);
+    } return '';
   }
 }

@@ -24,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -56,6 +57,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatGridListModule,
     MatToolbarModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -87,6 +89,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatGridListModule,
     MatToolbarModule,
     MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule { }

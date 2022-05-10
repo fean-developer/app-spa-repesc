@@ -29,7 +29,7 @@ import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-a
 import { CustomerUpdateComponent } from './components/dialogs/customer-update/customer-update.component';
 import { SharedModule } from './common/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { _repescsReducer } from './store/reducer';
+import { _repescsReducer, _customersReducer, _updateCustomersReducer, _updateTradutorReducer } from './store/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 
@@ -67,7 +67,7 @@ export function playerFactory() {
     AppConfigModule,
     LottieModule.forRoot({ player: playerFactory }),
     SharedModule,
-    StoreModule.forRoot({stateRepescs: _repescsReducer}),
+    StoreModule.forRoot({stateRepescs: _repescsReducer, stateCustomers: _customersReducer, _updateCustomersReducer,_updateTradutorReducer}),
     StoreDevtoolsModule.instrument(),
   ],
   schemas: [

@@ -45,13 +45,6 @@
             <mat-icon>content_copy</mat-icon>
           </button>
         </div>
-        <div class="list-item flex-row mt-0" *ngIf="selectedData?.sharedWithUser">
-          Você compartilhou esse cliente com:
-          <div class="list-item-text text-size-16 text-title"> 
-            <mat-icon>task_alt</mat-icon>{{
-            selectedData?.sharedWithUser?.name}}
-          </div>
-        </div>
         <mat-divider></mat-divider>
         <div class="list-contacts-content flex-column">
           <div class="list-contacts-item flex-row">

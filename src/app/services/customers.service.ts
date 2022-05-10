@@ -58,4 +58,11 @@ export class CustomersService {
         catchError(this.helpers.handleError));
   }
 
+  public updateCustomers(id: string, requestBody: Partial<Customers>) {
+    return this.httpClient.put<Customers>(`${this.config.api}/customers/${id}`, requestBody)
+      .pipe(
+        retry(1), delay(600),
+        catchError(this.helpers.handleError));
+  }
+
 }

@@ -1,10 +1,15 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Repescs } from 'src/app/models/repescs';
+import { element } from 'protractor';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Inject, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { finalize, delay } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AppConfig, APP_CONFIG } from './../../../config/app-config';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducer';
+import { updateRepescsAction } from 'src/app/store/actions';
 
 
 @Component({
@@ -27,8 +32,9 @@ export class FileuploadComponent {
   constructor(private http: HttpClient,
     @Inject(APP_CONFIG) private config: AppConfig,
     private _snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private store$: Store<AppState>) 
+ { }
 
   onFileSelected(event: any) {
     const file: File = event?.target?.files[0];
@@ -49,7 +55,14 @@ export class FileuploadComponent {
           this.dialog.closeAll(); })
           );
 
+          
         this.uploadSub = upload$.subscribe(e => {
+          const response = new HttpResponse(e as any)
+          
+          if (response.body) {
+            this.store$.dispatch(updateRepescsAction.updateRepescs({repescs: response.body as Repescs[]}));
+          }
+         
           if (e.type == HttpEventType.UploadProgress) {
             this.uploadProgress = Math.round(100 * (e.loaded / e.total!));
           }

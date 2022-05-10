@@ -22,5 +22,13 @@ export class Customers {
     repescData?: Repescs;
     sharedWithUser?: Partial<User>
     created_at!: Date;
+    metaData?: Partial<CustomerMetaData>
     user!: string;
+}
+
+export interface CustomerMetaData {
+    hasRegisterProposal: Boolean,
+    hasProductProposal: Boolean,
+    productProposalStatus: String,
+    isPartner: Boolean
 }

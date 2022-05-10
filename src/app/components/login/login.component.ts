@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     if (this.accountService.userValue) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/repescs']);
     }
   }
 
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         next: () => {
           // get return url from query parameters or default to home page
 
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/repescs';
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {

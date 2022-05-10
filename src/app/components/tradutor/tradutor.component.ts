@@ -1,3 +1,4 @@
+import { updateRepescsAction } from './../../store/actions';
 import { AnimationItem } from 'lottie-web';
 import { REPESC_TABLE_DICTIONARY } from './../dialogs/constants/repesc-table.constants';
 import { UserService } from './../../services/user.service';
@@ -16,7 +17,7 @@ import { Subscription, Observable } from 'rxjs';
 
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducer';
-import { selecRepescs } from 'src/app/store/selector';
+import { selectorData } from 'src/app/store/selector';
 
 
 @Component({
@@ -82,7 +83,6 @@ export class TradutorComponent implements OnInit {
   get user() { return this.userService.userValue}
 
   ngOnInit(): void {
-   
   this.subscribeRepescs()
   
     this.createForm();
@@ -90,7 +90,7 @@ export class TradutorComponent implements OnInit {
   }
 
   private subscribeRepescs() {
-    this.subscription$ = this.store$.select(selecRepescs);
+    this.subscription$ = this.store$.select(selectorData);
      this.subscription$.subscribe(
        (e) => {
          let c = Object.values(e)
@@ -99,7 +99,7 @@ export class TradutorComponent implements OnInit {
         } else {
           this.repescs = c[0].repescs;
           this.sorted = this.repescs.slice();
-        }                   
+        }   
       }
      )
   }
@@ -162,9 +162,10 @@ export class TradutorComponent implements OnInit {
   }
 
   openDialog(event: MouseEvent, byRepesc?: boolean): void {
-    this.dialog.open(UploadTradutorComponent, {
+    const uploadModal = this.dialog.open(UploadTradutorComponent, {
       panelClass: 'modal-container'
     });
+
   }
 
   openGenerateDialog(event: MouseEvent, byRepesc?: boolean, repesc?: string): void {

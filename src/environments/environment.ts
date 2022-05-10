@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:3000',
+  ENCRYPT_KEY:'7x!A%D*G-KaPdSgV'
 };
 
 /*

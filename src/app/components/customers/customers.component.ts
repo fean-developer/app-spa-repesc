@@ -1,3 +1,7 @@
+import { customersUpdateAction } from './../../store/actions';
+import { selectorCustomers, selectorData } from 'src/app/store/selector';
+import { AppState, CustomerState } from 'src/app/store/reducer';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { SetContext } from './../../_helpers/context-data';
 import Context from 'src/app/_helpers/context-data';
 import { UserService } from './../../services/user.service';
@@ -27,6 +31,9 @@ import {
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { User } from 'src/app/models/user';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { customersAction, repescsAction } from 'src/app/store/actions';
 
 interface Food {
   value: string;
@@ -49,9 +56,10 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['nome'];
   public dataSource!: MatTableDataSource<Customers>;
   public customers: Customers[] = [];
-  public repescs!: SetContext<Repescs[]>;
+  public repescs: Repescs[] =[];
   public dataCustomers!: SetContext<Customers[]>;
   public shared: boolean = false;
+  public customersOptions!: FormGroup;
 
   public avatarFirstLetter!: { firstName: string, lastName: string }
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -66,6 +74,9 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   };
 
   @Input() public customer!: Customers;
+
+  public subscription$!: Observable<CustomerState>;
+
   
   public users!: Partial<User[]>;
   protected responseData: any;
@@ -80,31 +91,56 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
     private fomatData: FormaData,
+    private FormOptions: FormBuilder,
     private usersServices: UserService,
-    private _context: Context<Repescs[]>,
-    private changed: ChangeDetectorRef
+    private changed: ChangeDetectorRef,
+    private store$: Store<any>
   ) { 
   }
 
+  
 
   ngAfterViewInit(): void {
     setTimeout(() => { this.updateDataSource();  this.changed.detectChanges();} , 800)
   }
   
+  public createOptionsCustomers() {
+    this.customersOptions = this.FormOptions.group({
+      hasRegisterProposal: [false],
+      hasProductProposal: [false],
+      isPartner: [false],
+    });
+  }
+
+
+  private subscribeCustomers() {
+    this.subscription$ = this.store$.select(selectorCustomers);
+    this.subscription$.subscribe(
+      (e) => {
+        let c = Object.values(e)
+        if(c[1].customers.length == 0) {
+          this.listCustomers();
+       } else {
+         this.customers = c[1].customers;
+       }                 
+       this.hasData = this.customers.length > 0 ? true : false;
+       this.isLoading = false
+     }
+    )
+  }
   
   ngOnInit(): void {
-    if ( this._context.getContext()?.repescs ) {
-      this.repescs = this._context.getContext()?.repescs;
-    } else {
-      this.retrieveRepescs();
-    }
-    if ( this._context.getContext()?.customers ) {
-      this.customers = this._context.getContext()?.customers as Customers[];
-      this.isLoading = false
-      this.hasData = this.customers.length > 0 ? true : false;
-    } else {
-      this.listCustomers();
-    }
+    this.subscribeCustomers();
+    this.store$.select(selectorData).subscribe((d: any) => {
+      if(d.stateRepescs.repescs.length > 0){
+        this.repescs = d.stateRepescs.repescs;
+
+      } else {
+        this.retrieveRepescs();
+      }
+    })
+    this.changed.detectChanges();
+    this.createOptionsCustomers();
   }
 
   openDialog() {
@@ -124,14 +160,16 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     
     dialogRef.afterClosed().subscribe(
       () => {
-        if ( dialogRef.componentInstance.customer ) {
-          this.customers.push(dialogRef.componentInstance.customer);
+        if (dialogRef.componentInstance.customer) {
+
+          this.store$.dispatch(customersUpdateAction.updateCustomer({ customers: [...this.customers, dialogRef.componentInstance.customer] }));
+          this.updateDataSource();
+          this.changed.detectChanges();
         }
         dialogRef.componentInstance.byForm = false;
         dialogRef.componentInstance.byRepesc = false;
         this.isLoading = false
         this.hasData = this.customers.length > 0 ? true : false;
-        this._context.setContext({customers: this.customers});
         this.updateDataSource();
         this.changed.detectChanges();
       }
@@ -149,13 +187,11 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   listCustomers(): void {
     try {
       this.service.getAllCustomers()
-        .subscribe(data => {
-          this.customers = data;
-          this.customers.find((row) => {
+        .subscribe(data => {          
+          data.find((row) => {
             row.repescData = this.repescs.find((el: { code: string | undefined; }) => el.code == row.repesc)
           });
-          this._context.setContext({repescs: this.repescs});
-          this._context.setContext({customers: this.customers});
+          this.store$.dispatch(customersAction.retrieveCustomers({ customers: data}));
           this.isLoading = false
           this.hasData = this.customers.length > 0 ? true : false;
         });
@@ -196,7 +232,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
                     duration: 5000
                   })
                   this.customers = this.customers.filter((el) => el.id != id);
-                  this._context.setContext({customers: this.customers.filter((el) => el.id != id)});
+                  this.store$.dispatch(customersAction.retrieveCustomers({ customers: this.customers.filter((el) => el.id != id)}));
                   this.updateDataSource();
                   this.changed.detectChanges();
                 })
@@ -208,7 +244,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   retrieveRepescs() {
     this.repescService.getAllRepescs()
       .subscribe(el => {
-        this.repescs = el as any;
+        this.store$.dispatch(repescsAction.saveRepescsData({repescs: el}));
       });
   }
 
