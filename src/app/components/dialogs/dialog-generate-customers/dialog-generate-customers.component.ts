@@ -63,14 +63,6 @@ export class DialogGenerateCustomersComponent {
       .subscribe((el) => {
         this.customer = el;
         if (el) {
-          this.store$.select(selectorCustomers).subscribe(
-            (item) => {
-              let customer = Object.values(item)
-              if (customer[1].customers.length > 0) {
-                this.store$.dispatch(customersUpdateAction.updateCustomer({ customers: [...customer[1].customers, el] }));
-              }
-            })
-
           this.loading = false;
           this.customer = this.data.repesc == null ?  el : this.data
         }
@@ -96,6 +88,7 @@ export class DialogGenerateCustomersComponent {
           .subscribe((e) => {
             this.customer = e;
             if (e) {
+              
               this.loading = false;
               this.data = e;
             }

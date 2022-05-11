@@ -1,3 +1,4 @@
+import { Customers } from 'src/app/models/customers';
 import { updateRepescsAction } from './../../store/actions';
 import { AnimationItem } from 'lottie-web';
 import { REPESC_TABLE_DICTIONARY } from './../dialogs/constants/repesc-table.constants';
@@ -12,12 +13,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { UploadTradutorComponent } from './../dialogs/upload-tradutor/upload-tradutor.component';
 import { DialogGenerateCustomersComponent } from '../dialogs/dialog-generate-customers/dialog-generate-customers.component';
 import { AnimationOptions } from 'ngx-lottie';
-import { repescsAction } from 'src/app/store/actions';
+import { repescsAction, customersUpdateAction } from 'src/app/store/actions';
 import { Subscription, Observable } from 'rxjs';
 
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducer';
-import { selectorData } from 'src/app/store/selector';
+import { selectorData, selectorCustomers } from 'src/app/store/selector';
 
 
 @Component({
@@ -70,13 +71,13 @@ export class TradutorComponent implements OnInit {
   
   //public subscription: Subscription = new Subscription();
   public subscription$!: Observable<AppState>;
-
+  private customers!: Customers[];
   constructor(
     private repescsServices: RepescsService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private store$: Store<AppState>) {
+    private store$: Store<any>) {
   }
 
   get frm() { return this.updateForm.controls }
@@ -169,6 +170,13 @@ export class TradutorComponent implements OnInit {
   }
 
   openGenerateDialog(event: MouseEvent, byRepesc?: boolean, repesc?: string): void {
+    this.store$.select(selectorCustomers).subscribe(
+      (e) => {
+        let c = Object.values(e)
+        if(c[1].customers.length > 0) {
+          this.customers = c[1].customers
+        }});
+         
     const dialogRef = this.dialog.open(DialogGenerateCustomersComponent, {
       panelClass: 'modal-container',
       data: {
@@ -183,6 +191,7 @@ export class TradutorComponent implements OnInit {
       () => {
         dialogRef.componentInstance.byForm = false;
         dialogRef.componentInstance.byRepesc = false;
+            this.store$.dispatch(customersUpdateAction.updateCustomer({ customers: [...this.customers,dialogRef.componentInstance.customer] }));
       }
     )
     event.preventDefault();
