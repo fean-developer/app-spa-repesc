@@ -1,6 +1,9 @@
 import { NotificationsService } from './services/notifications.service';
 import { UserService } from './services/user.service';
 import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { SwPush } from '@angular/service-worker';
+import { NewsletterService } from './services/newsletter.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +15,22 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   public isLogged: boolean = false;
   public listMenu: Array<any> = [];
   public currentUser!: any;
+  readonly VAPID_PUBLIC_KEY = environment.PUSHER_PK;
 
   constructor(private user: UserService,
-    private notification: NotificationsService) {
+    private notification: NotificationsService,
+    private swPush: SwPush,
+    private newsletterService: NewsletterService) {
     
   }
 
+  subscriptionNotification() {
+    this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
+    .then((sub) => this.newsletterService.addPushSubscriber(sub).subscribe())
+    .catch(err => console.log('Could not subscribe to notifications', err));
+  }
 
   ngAfterViewChecked(): void {
     setTimeout(() => {
@@ -32,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
       { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: !this.user.userValue.isAdmin }
     ]
-
+    this.subscriptionNotification();
   this.notification.isAvailableNotificationDesktop()
   
   }

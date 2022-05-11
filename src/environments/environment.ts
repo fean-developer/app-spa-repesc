@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   api: 'http://localhost:3000',
-  ENCRYPT_KEY:'7x!A%D*G-KaPdSgV'
+  ENCRYPT_KEY:'7x!A%D*G-KaPdSgV',
+  PUSHER_PK: 'BNDw-WX63fpPt3mtB_pM6P7ShsKtDRRsljr7U5qP0uXR3iMEnoC_qfkZDf5glFduLWLO0pE_KHvCU-46qqzSvDc'
 };
 
 /*

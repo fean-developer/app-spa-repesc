@@ -32,6 +32,8 @@ import { StoreModule } from '@ngrx/store';
 import { _repescsReducer, _customersReducer, _updateCustomersReducer, _updateTradutorReducer } from './store/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { NewsletterService } from './services/newsletter.service';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -69,6 +71,12 @@ export function playerFactory() {
     SharedModule,
     StoreModule.forRoot({stateRepescs: _repescsReducer, stateCustomers: _customersReducer, _updateCustomersReducer,_updateTradutorReducer}),
     StoreDevtoolsModule.instrument(),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: true,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -77,7 +85,7 @@ export function playerFactory() {
   providers: [RepescsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  FormaData, Context],
+  FormaData, Context,NewsletterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
