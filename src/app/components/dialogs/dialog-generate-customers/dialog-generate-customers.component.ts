@@ -7,7 +7,9 @@ import { Component, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomersComponent } from '../../customers/customers.component';
 import { FormaData } from 'src/app/_helpers/format.data';
-import  Context  from 'src/app/_helpers/context-data';
+import { customersUpdateAction } from 'src/app/store/actions';
+import { Store } from '@ngrx/store';
+import { selectorCustomers } from 'src/app/store/selector';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class DialogGenerateCustomersComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private builder: FormBuilder,
     private formatData: FormaData,
-    private _context: Context<Customers[]>,
+    private store$: Store<any>
   ) {}
 
   get notice() { return DICTIONARY_VIEW_DATA.create_notice }
@@ -58,16 +60,19 @@ export class DialogGenerateCustomersComponent {
   generate() {
     this.loading = true;
     this.customerService.generateOneCustomer()
-      .subscribe((e) => {
-        this.customer = e;
-        if (e) {
-          const customers = this._context.getContext().customers;
-          if(customers && customers.length > 0 ) {
-             customers.push(e);
-             this._context.setContext({customers});
-          }
+      .subscribe((el) => {
+        this.customer = el;
+        if (el) {
+          this.store$.select(selectorCustomers).subscribe(
+            (item) => {
+              let customer = Object.values(item)
+              if (customer[1].customers.length > 0) {
+                this.store$.dispatch(customersUpdateAction.updateCustomer({ customers: [...customer[1].customers, el] }));
+              }
+            })
+
           this.loading = false;
-          this.customer = this.data.repesc == null ?  e : this.data
+          this.customer = this.data.repesc == null ?  el : this.data
         }
       });
   }
