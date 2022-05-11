@@ -122,6 +122,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
           this.listCustomers();
        } else {
          this.customers = c[1].customers;
+         setTimeout(() => { this.updateDataSource();  this.changed.detectChanges();} , 800)
        }                 
        this.hasData = this.customers.length > 0 ? true : false;
        this.isLoading = false
