@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../../services/notifications.service';
 import { Repescs } from 'src/app/models/repescs';
 import { element } from 'protractor';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
@@ -33,7 +34,8 @@ export class FileuploadComponent {
     @Inject(APP_CONFIG) private config: AppConfig,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private store$: Store<AppState>) 
+    private store$: Store<AppState>,
+    private notification: NotificationsService) 
  { }
 
   onFileSelected(event: any) {
@@ -51,8 +53,15 @@ export class FileuploadComponent {
         })
           .pipe(
             delay(600),
-            finalize(() => { this.reset(); this.openSnackBar('Arquivo carregado com sucesso', { panelClass: 'success' });
-          this.dialog.closeAll(); })
+            finalize(() => {
+              this.reset(); this.openSnackBar('Arquivo carregado com sucesso', { panelClass: 'success' });
+              this.notification.setOptions({
+                icon: '/assets/images/avatar-hacker.png',
+                body: 'Uma nova atualização da tabela\nda repesc foi atualizada',
+              }).
+              pusherDesktop("Tradutor repesc ");
+              this.dialog.closeAll();
+            })
           );
 
           
@@ -67,6 +76,7 @@ export class FileuploadComponent {
             this.uploadProgress = Math.round(100 * (e.loaded / e.total!));
           }
         })
+
       }
     } catch (error: any) {
       this.openSnackBar(error.message)

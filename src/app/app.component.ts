@@ -1,3 +1,4 @@
+import { NotificationsService } from './services/notifications.service';
 import { UserService } from './services/user.service';
 import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   public listMenu: Array<any> = [];
   public currentUser!: any;
 
-  constructor(private user: UserService) {
+  constructor(private user: UserService,
+    private notification: NotificationsService) {
     
   }
 
@@ -30,6 +32,9 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
       { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: !this.user.userValue.isAdmin }
     ]
+
+  this.notification.isAvailableNotificationDesktop()
+  
   }
 
   ngAfterViewInit(): void {

@@ -166,7 +166,6 @@ export class TradutorComponent implements OnInit {
     const uploadModal = this.dialog.open(UploadTradutorComponent, {
       panelClass: 'modal-container'
     });
-
   }
 
   openGenerateDialog(event: MouseEvent, byRepesc?: boolean, repesc?: string): void {
