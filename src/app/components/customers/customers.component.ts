@@ -191,9 +191,11 @@ export class CustomersComponent implements OnInit, AfterViewInit {
           data.find((row) => {
             row.repescData = this.repescs.find((el: { code: string | undefined; }) => el.code == row.repesc)
           });
-          this.store$.dispatch(customersAction.retrieveCustomers({ customers: data}));
-          this.isLoading = false
-          this.hasData = this.customers.length > 0 ? true : false;
+          if (data.length > 0) {
+            this.store$.dispatch(customersAction.retrieveCustomers({ customers: data }));
+            this.isLoading = false
+            this.hasData = this.customers.length > 0 ? true : false;
+          }
         });
         
       } catch (error) {
