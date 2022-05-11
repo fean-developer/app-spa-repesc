@@ -1,0 +1,111 @@
+{
+  "configVersion": 1,
+  "timestamp": 1652311829635,
+  "index": "/app-spa-repesc/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/app-spa-repesc/favicon.ico",
+        "/app-spa-repesc/index.html",
+        "/app-spa-repesc/main.5f797f2c716f01ba4e76.js",
+        "/app-spa-repesc/manifest.webmanifest",
+        "/app-spa-repesc/polyfills.2bf2a8f9a9b98562f2d3.js",
+        "/app-spa-repesc/runtime.8a253e390b724d6db534.js",
+        "/app-spa-repesc/scripts.e6c737b4432e249833cd.js",
+        "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/app-spa-repesc/assets/icons/icon-128x128.png",
+        "/app-spa-repesc/assets/icons/icon-144x144.png",
+        "/app-spa-repesc/assets/icons/icon-152x152.png",
+        "/app-spa-repesc/assets/icons/icon-192x192.png",
+        "/app-spa-repesc/assets/icons/icon-384x384.png",
+        "/app-spa-repesc/assets/icons/icon-512x512.png",
+        "/app-spa-repesc/assets/icons/icon-72x72.png",
+        "/app-spa-repesc/assets/icons/icon-96x96.png",
+        "/app-spa-repesc/assets/images/avatar-hacker.png",
+        "/app-spa-repesc/assets/images/lottie/add-contact.json",
+        "/app-spa-repesc/assets/images/lottie/contact-us.json",
+        "/app-spa-repesc/assets/images/lottie/stressed-woman-at-work.json",
+        "/app-spa-repesc/assets/images/lottie/tradutor-load.json",
+        "/app-spa-repesc/assets/images/my-customers.png",
+        "/app-spa-repesc/assets/images/score-de-credito.jpg",
+        "/app-spa-repesc/assets/images/trabalho-em-equipe.png",
+        "/app-spa-repesc/assets/images/tradutor.png",
+        "/app-spa-repesc/assets/scss/colors.scss",
+        "/app-spa-repesc/assets/scss/screen.scss",
+        "/app-spa-repesc/assets/scss/sizes.scss",
+        "/app-spa-repesc/assets/scss/typography.scss",
+        "/app-spa-repesc/trabalho-em-equipe.0e35b77fe31b2ad854a5.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/app-spa-repesc/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/app-spa-repesc/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/app-spa-repesc/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/app-spa-repesc/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/app-spa-repesc/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/app-spa-repesc/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/app-spa-repesc/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/app-spa-repesc/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/app-spa-repesc/assets/images/avatar-hacker.png": "7a26fb3479b9761aa55b59d162dbc6f0ec71235f",
+    "/app-spa-repesc/assets/images/lottie/add-contact.json": "461fd09634a0c9b0826d9d37fe2d0023967a3dac",
+    "/app-spa-repesc/assets/images/lottie/contact-us.json": "43510c28c44ee563c296ac4a881e94cd2fe06262",
+    "/app-spa-repesc/assets/images/lottie/stressed-woman-at-work.json": "60d4fc57a75396d2ef8a280da50ea9322536363d",
+    "/app-spa-repesc/assets/images/lottie/tradutor-load.json": "4c12d76d22475781e6c14a0702b27e9a6cbcfe00",
+    "/app-spa-repesc/assets/images/my-customers.png": "161640f25ffd149e44aeff3cb2dda828e09bf50c",
+    "/app-spa-repesc/assets/images/score-de-credito.jpg": "c06212db3631388c11d11a39f9e57b729d22b5f8",
+    "/app-spa-repesc/assets/images/trabalho-em-equipe.png": "59cf02e483589e7527eb074219cf2307a6d5eb94",
+    "/app-spa-repesc/assets/images/tradutor.png": "af4d4d71218dd1e0092662ef3c3776d4ec14bd50",
+    "/app-spa-repesc/assets/scss/colors.scss": "07ec614e314152ebe9832e426d2690351fc7e579",
+    "/app-spa-repesc/assets/scss/screen.scss": "cf2f599ccbf85a65fa7ddb79ec77befd57430ff5",
+    "/app-spa-repesc/assets/scss/sizes.scss": "af7aa326cf7ff81ff0f6fa89ca8cac159b2a3139",
+    "/app-spa-repesc/assets/scss/typography.scss": "f8fcf1f8c7149156084e98056d272b7bdf8c9e0b",
+    "/app-spa-repesc/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/app-spa-repesc/index.html": "b8bb36a5f4b5a4a8ef715c17049b5dac43de45dc",
+    "/app-spa-repesc/main.5f797f2c716f01ba4e76.js": "82507d0e6c65fa79b5f983402e059df06a59f82e",
+    "/app-spa-repesc/manifest.webmanifest": "c0a7befcb1f2f2628ee94a6de565b3492c071519",
+    "/app-spa-repesc/polyfills.2bf2a8f9a9b98562f2d3.js": "4bb9ddecf47267b9c4492c690a9131b6843db33a",
+    "/app-spa-repesc/runtime.8a253e390b724d6db534.js": "d298d7155c67bd9322cd8ee8e3fc2a29415334c7",
+    "/app-spa-repesc/scripts.e6c737b4432e249833cd.js": "d3320fe5b973e191d6858e6278754408525c87f1",
+    "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css": "2d63ac74a47ce51d230c591868c49fd8890401b7",
+    "/app-spa-repesc/trabalho-em-equipe.0e35b77fe31b2ad854a5.png": "59cf02e483589e7527eb074219cf2307a6d5eb94"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
