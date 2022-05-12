@@ -8,7 +8,7 @@ const vapiKeys = {
     privateKey: environment.PUSHER_PVTK
 }
 
-const webpush = require('web-push');
+import webpush from 'web-push';
 
 @Injectable({
     providedIn: 'root'
@@ -20,10 +20,9 @@ export class ApiNotificationServiceImpl {
         privateKey: environment.PUSHER_PVTK
     }
     
-    public webpush = require('web-push');
 
     constructor(private service: NewsletterService){
-        this.webpush.setVapidDetails(
+        webpush.setVapidDetails(
             'mailto:example@yourdomain.org',
             this.vapiKeys.publicKey,
             this.vapiKeys.privateKey
@@ -63,7 +62,7 @@ export class ApiNotificationServiceImpl {
             }
         }
         
-        Promise.all(allSubscriptions.map((sub: any) => this.webpush.sendNotification(
+        Promise.all(allSubscriptions.map((sub: any) => webpush.sendNotification(
             sub, JSON.stringify(notificationPayload) )))
             .then(() => ({"message": 'Newsletter sent successfully.'}))
             .catch(err => {
