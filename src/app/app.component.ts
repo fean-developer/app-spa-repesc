@@ -4,6 +4,7 @@ import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/cor
 import { environment } from 'src/environments/environment';
 import { SwPush } from '@angular/service-worker';
 import { NewsletterService } from './services/newsletter.service';
+import { ApiNotificationServiceImpl } from './clients/service/notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   constructor(private user: UserService,
     private notification: NotificationsService,
     private swPush: SwPush,
-    private newsletterService: NewsletterService) {
+    private newsletterService: NewsletterService,
+    private apiNotification: ApiNotificationServiceImpl) {
     
   }
 
@@ -47,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
     ]
     this.subscriptionNotification();
   this.notification.isAvailableNotificationDesktop()
-  
+  this.apiNotification.notify();
   }
 
   ngAfterViewInit(): void {
