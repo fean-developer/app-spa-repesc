@@ -28,6 +28,7 @@ export class ApiNotificationServiceImpl {
             this.vapiKeys.publicKey,
             this.vapiKeys.privateKey
         )
+        
     }
 
 
