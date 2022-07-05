@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1652311829635,
+  "timestamp": 1657062893833,
   "index": "/app-spa-repesc/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,10 @@
       "urls": [
         "/app-spa-repesc/favicon.ico",
         "/app-spa-repesc/index.html",
-        "/app-spa-repesc/main.5f797f2c716f01ba4e76.js",
-        "/app-spa-repesc/manifest.webmanifest",
-        "/app-spa-repesc/polyfills.2bf2a8f9a9b98562f2d3.js",
-        "/app-spa-repesc/runtime.8a253e390b724d6db534.js",
-        "/app-spa-repesc/scripts.e6c737b4432e249833cd.js",
+        "/app-spa-repesc/main.5f4de77f3961ff824b30.js",
+        "/app-spa-repesc/polyfills.657ed098b6157604c457.js",
+        "/app-spa-repesc/runtime.b5841880ec74f9c7fd82.js",
+        "/app-spa-repesc/scripts.5fb7a6346c8a7b2f4e3a.js",
         "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css"
       ],
       "patterns": []
@@ -80,12 +79,11 @@
     "/app-spa-repesc/assets/scss/sizes.scss": "af7aa326cf7ff81ff0f6fa89ca8cac159b2a3139",
     "/app-spa-repesc/assets/scss/typography.scss": "f8fcf1f8c7149156084e98056d272b7bdf8c9e0b",
     "/app-spa-repesc/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/app-spa-repesc/index.html": "b8bb36a5f4b5a4a8ef715c17049b5dac43de45dc",
-    "/app-spa-repesc/main.5f797f2c716f01ba4e76.js": "82507d0e6c65fa79b5f983402e059df06a59f82e",
-    "/app-spa-repesc/manifest.webmanifest": "c0a7befcb1f2f2628ee94a6de565b3492c071519",
-    "/app-spa-repesc/polyfills.2bf2a8f9a9b98562f2d3.js": "4bb9ddecf47267b9c4492c690a9131b6843db33a",
-    "/app-spa-repesc/runtime.8a253e390b724d6db534.js": "d298d7155c67bd9322cd8ee8e3fc2a29415334c7",
-    "/app-spa-repesc/scripts.e6c737b4432e249833cd.js": "d3320fe5b973e191d6858e6278754408525c87f1",
+    "/app-spa-repesc/index.html": "476e1d699d4d5aa6bc4709dff223f8c467cbbb81",
+    "/app-spa-repesc/main.5f4de77f3961ff824b30.js": "9aab4ea3ad1dd1a8a82de1a34c586ef71e0bd17b",
+    "/app-spa-repesc/polyfills.657ed098b6157604c457.js": "937df74c1a493b7648c3aa6d8ba8dfc0cb9c8ae2",
+    "/app-spa-repesc/runtime.b5841880ec74f9c7fd82.js": "d298d7155c67bd9322cd8ee8e3fc2a29415334c7",
+    "/app-spa-repesc/scripts.5fb7a6346c8a7b2f4e3a.js": "e91327575a31650efa63b45bb1cd16912ae5494e",
     "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css": "2d63ac74a47ce51d230c591868c49fd8890401b7",
     "/app-spa-repesc/trabalho-em-equipe.0e35b77fe31b2ad854a5.png": "59cf02e483589e7527eb074219cf2307a6d5eb94"
   },
