@@ -25,13 +25,11 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "allowedCommonJsDependencies": [
-              "lottie-web"
-           ],
+            "allowedCommonJsDependencies": ["lottie-web"],
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest"
+              "src/manifest.json"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -40,7 +38,8 @@
             ],
             "scripts": [
               "./node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/firebase-messaging-sw.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

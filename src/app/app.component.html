@@ -49,6 +49,13 @@
 
 
   <mat-drawer-content>
+    <div *ngIf="messaging;"> 
+      <h1>{{ messaging.notification.title }}</h1> 
+      <h2>{{ messaging.notification.body }}</h2> 
+    </div>
+    <div *ngIf="!messaging;"> 
+      Nenhuma mensagem chegou 
+    </div>
     <div class="toolbar" role="banner" *ngIf="isLogged">
 
       <button mat-icon-button (click)="drawer.toggle()" aria-label="Example icon-button with a menu">

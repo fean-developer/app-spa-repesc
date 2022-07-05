@@ -1,11 +1,7 @@
-import { NotificationsService } from './services/notifications.service';
 import { UserService } from './services/user.service';
 import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { SwPush } from '@angular/service-worker';
-import { NewsletterService } from './services/newsletter.service';
-import { ApiNotificationServiceImpl } from './clients/service/notifications.service';
-
+import { getMessaging, getToken, onMessage } from 'firebase/messaging'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,22 +13,12 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   public listMenu: Array<any> = [];
   public currentUser!: any;
   readonly VAPID_PUBLIC_KEY = environment.PUSHER_PK;
+  messaging:any = null; 
 
-  constructor(private user: UserService,
-    private notification: NotificationsService,
-    private swPush: SwPush,
-    private newsletterService: NewsletterService,
-    private apiNotification: ApiNotificationServiceImpl) {
-    
+  constructor(private user: UserService){
   }
 
-  subscriptionNotification() {
-    this.swPush.requestSubscription({
-      serverPublicKey: this.VAPID_PUBLIC_KEY
-    })
-    .then((sub) => this.newsletterService.addPushSubscriber(sub).subscribe())
-    .catch(err => console.log('Could not subscribe to notifications', err));
-  }
+ 
 
   ngAfterViewChecked(): void {
     setTimeout(() => {
@@ -47,10 +33,32 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       { icon: 'groups', text: 'Meus cliente', page: '/customers', disabled: false},
       { icon: 'person', text: 'Adicionar usuario', page: '/users', disabled: !this.user.userValue.isAdmin }
     ]
-    this.subscriptionNotification();
-  this.notification.isAvailableNotificationDesktop()
-  this.apiNotification.notify();
+   
+    this.requestPermission(); 
+    this.listen();
+
   }
+  requestPermission() { 
+    const messaging = getMessaging(); 
+    getToken(messaging, 
+     { vapidKey: environment.firebaseConfig.vapidKey}).then( 
+       (currentToken) => { 
+         if (currentToken) { 
+           console.log("Hurraaaa!!! temos o token...."); 
+           console .log(currentToken); 
+         } else { 
+           console.log('Nenhum token de registro disponível. Solicite permissão para gerar um.'); 
+         }
+     }).catch((err) => { 
+        console.log('Ocorreu um erro ao recuperar o token. ', err); 
+    }); 
+  } 
+  listen() { 
+    const messaging = getMessaging(); 
+    onMessage(messaging, (payload) => { 
+      this.messaging=payload; 
+    }); 
+  } 
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -59,14 +67,6 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   public myDashboard() {
-
-    // property five last customers
-
-    // property all customers
-
-    // property all shared customers
-
-    // property cadastrados na sim
 
   }
 
