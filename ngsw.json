@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1657062893833,
+  "timestamp": 1665598360570,
   "index": "/app-spa-repesc/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,15 @@
         "ignoreVary": true
       },
       "urls": [
+        "/app-spa-repesc/32.2b98c9398dda2216992a.js",
         "/app-spa-repesc/favicon.ico",
+        "/app-spa-repesc/firebase-messaging-sw.js",
         "/app-spa-repesc/index.html",
-        "/app-spa-repesc/main.5f4de77f3961ff824b30.js",
-        "/app-spa-repesc/polyfills.657ed098b6157604c457.js",
-        "/app-spa-repesc/runtime.b5841880ec74f9c7fd82.js",
-        "/app-spa-repesc/scripts.5fb7a6346c8a7b2f4e3a.js",
-        "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css"
+        "/app-spa-repesc/main.4936bd5121adaaa2eb6a.js",
+        "/app-spa-repesc/polyfills.54ae9f80dce2e91177ea.js",
+        "/app-spa-repesc/runtime.5b39855c5ac345615af5.js",
+        "/app-spa-repesc/scripts.338a5217268cf5379ae6.js",
+        "/app-spa-repesc/styles.90b8cf28b1229cc02e86.css"
       ],
       "patterns": []
     },
@@ -38,6 +40,8 @@
         "/app-spa-repesc/assets/icons/icon-72x72.png",
         "/app-spa-repesc/assets/icons/icon-96x96.png",
         "/app-spa-repesc/assets/images/avatar-hacker.png",
+        "/app-spa-repesc/assets/images/avatars.png",
+        "/app-spa-repesc/assets/images/logosim.png",
         "/app-spa-repesc/assets/images/lottie/add-contact.json",
         "/app-spa-repesc/assets/images/lottie/contact-us.json",
         "/app-spa-repesc/assets/images/lottie/stressed-woman-at-work.json",
@@ -50,6 +54,7 @@
         "/app-spa-repesc/assets/scss/screen.scss",
         "/app-spa-repesc/assets/scss/sizes.scss",
         "/app-spa-repesc/assets/scss/typography.scss",
+        "/app-spa-repesc/avatars.77598af68110e3d0b84a.png",
         "/app-spa-repesc/trabalho-em-equipe.0e35b77fe31b2ad854a5.png"
       ],
       "patterns": []
@@ -57,6 +62,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "/app-spa-repesc/32.2b98c9398dda2216992a.js": "815bd5155da32ba1c741aa1935f149821089b803",
     "/app-spa-repesc/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "/app-spa-repesc/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
     "/app-spa-repesc/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
@@ -66,6 +72,8 @@
     "/app-spa-repesc/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/app-spa-repesc/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/app-spa-repesc/assets/images/avatar-hacker.png": "7a26fb3479b9761aa55b59d162dbc6f0ec71235f",
+    "/app-spa-repesc/assets/images/avatars.png": "d7529b62c3ead5e92e7fb823fedf89fd1ccf4656",
+    "/app-spa-repesc/assets/images/logosim.png": "92197f59ae54c571f318fe47bc2a039455754b41",
     "/app-spa-repesc/assets/images/lottie/add-contact.json": "461fd09634a0c9b0826d9d37fe2d0023967a3dac",
     "/app-spa-repesc/assets/images/lottie/contact-us.json": "43510c28c44ee563c296ac4a881e94cd2fe06262",
     "/app-spa-repesc/assets/images/lottie/stressed-woman-at-work.json": "60d4fc57a75396d2ef8a280da50ea9322536363d",
@@ -74,17 +82,19 @@
     "/app-spa-repesc/assets/images/score-de-credito.jpg": "c06212db3631388c11d11a39f9e57b729d22b5f8",
     "/app-spa-repesc/assets/images/trabalho-em-equipe.png": "59cf02e483589e7527eb074219cf2307a6d5eb94",
     "/app-spa-repesc/assets/images/tradutor.png": "af4d4d71218dd1e0092662ef3c3776d4ec14bd50",
-    "/app-spa-repesc/assets/scss/colors.scss": "07ec614e314152ebe9832e426d2690351fc7e579",
+    "/app-spa-repesc/assets/scss/colors.scss": "ca19fef86108a5db03159194b18475c4b962987d",
     "/app-spa-repesc/assets/scss/screen.scss": "cf2f599ccbf85a65fa7ddb79ec77befd57430ff5",
-    "/app-spa-repesc/assets/scss/sizes.scss": "af7aa326cf7ff81ff0f6fa89ca8cac159b2a3139",
+    "/app-spa-repesc/assets/scss/sizes.scss": "a70516b057b22d8c45a875af8b4407bcd8e577a2",
     "/app-spa-repesc/assets/scss/typography.scss": "f8fcf1f8c7149156084e98056d272b7bdf8c9e0b",
+    "/app-spa-repesc/avatars.77598af68110e3d0b84a.png": "d7529b62c3ead5e92e7fb823fedf89fd1ccf4656",
     "/app-spa-repesc/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/app-spa-repesc/index.html": "476e1d699d4d5aa6bc4709dff223f8c467cbbb81",
-    "/app-spa-repesc/main.5f4de77f3961ff824b30.js": "9aab4ea3ad1dd1a8a82de1a34c586ef71e0bd17b",
-    "/app-spa-repesc/polyfills.657ed098b6157604c457.js": "937df74c1a493b7648c3aa6d8ba8dfc0cb9c8ae2",
-    "/app-spa-repesc/runtime.b5841880ec74f9c7fd82.js": "d298d7155c67bd9322cd8ee8e3fc2a29415334c7",
-    "/app-spa-repesc/scripts.5fb7a6346c8a7b2f4e3a.js": "e91327575a31650efa63b45bb1cd16912ae5494e",
-    "/app-spa-repesc/styles.a0c04714baae2a2c3e24.css": "2d63ac74a47ce51d230c591868c49fd8890401b7",
+    "/app-spa-repesc/firebase-messaging-sw.js": "5ce8d98fef1bbc0300b5afb7bf6fac32886dd387",
+    "/app-spa-repesc/index.html": "725562cf6e6084a05f77b79980238ec532a7511b",
+    "/app-spa-repesc/main.4936bd5121adaaa2eb6a.js": "9ac1ca55db7468ecb510d38a475f2c99eab912e9",
+    "/app-spa-repesc/polyfills.54ae9f80dce2e91177ea.js": "4bb9ddecf47267b9c4492c690a9131b6843db33a",
+    "/app-spa-repesc/runtime.5b39855c5ac345615af5.js": "b2a7205a2ad488baef759eb86797193c5e52830f",
+    "/app-spa-repesc/scripts.338a5217268cf5379ae6.js": "3473c7f2017714d7acf24268ea57ed446cb7b1d6",
+    "/app-spa-repesc/styles.90b8cf28b1229cc02e86.css": "daa38e4c31bbaaa035bd081de4ba5e4ee91c76a3",
     "/app-spa-repesc/trabalho-em-equipe.0e35b77fe31b2ad854a5.png": "59cf02e483589e7527eb074219cf2307a6d5eb94"
   },
   "navigationUrls": [

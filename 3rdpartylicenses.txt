@@ -32,6 +32,9 @@ MIT
 @angular/core
 MIT
 
+@angular/fire
+MIT
+
 @angular/forms
 MIT
 
@@ -92,10 +95,31 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+@firebase/analytics
+Apache-2.0
+
 @firebase/app
 Apache-2.0
 
+@firebase/app-check
+Apache-2.0
+
+@firebase/app-compat
+Apache-2.0
+
+@firebase/auth
+Apache-2.0
+
+@firebase/auth-compat
+Apache-2.0
+
 @firebase/component
+Apache-2.0
+
+@firebase/database
+Apache-2.0
+
+@firebase/database-compat
 Apache-2.0
 
 @firebase/installations
@@ -105,6 +129,9 @@ Apache-2.0
 Apache-2.0
 
 @firebase/messaging
+Apache-2.0
+
+@firebase/remote-config
 Apache-2.0
 
 @firebase/util
@@ -167,9 +194,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+firebase/analytics
+
 firebase/app
 
+firebase/app-check
+
+firebase/compat/app
+
+firebase/compat/auth
+
+firebase/compat/database
+
+firebase/compat/messaging
+
 firebase/messaging
+
+firebase/remote-config
 
 idb
 ISC
@@ -204,6 +245,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+ngx-device-detector
+MIT
 
 ngx-lottie
 MIT

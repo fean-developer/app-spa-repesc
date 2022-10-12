@@ -4,7 +4,7 @@
   --drawer-background-color: rgb(182, 181, 181);
   --drawer-avatar-background-color: rgb(254, 0, 100, 1);
   --drawer-avatar-color: #fff;
-  --primary-color: rgb(254, 0, 100, 1);
+  --primary-color: #fe7f00;
   --greyscale-001: rgba(245, 247, 248, 0.973);
   --greyscale-002: rgba(121, 119, 119, 1);
   --greyscale-003: rgb(156, 156, 156, 1);
@@ -15,7 +15,7 @@
   --yellow-001: rgb(252, 248, 201);
 }
 
-$primary-color: rgb(254, 0, 100, 1);
+$primary-color: #fb5305;
 $white-000: #fff;
 
 $greyscale-001: rgba(245, 247, 248, 0.973);
@@ -33,6 +33,10 @@ $black-grey-001: rgb(46, 46, 45, 1);
 
 .text-color-grey-002 {
   color: $greyscale-002;
+}
+
+.text-color-primary {
+  color: $primary-color !important;
 }
 
 .tool-bar-green-004 {
